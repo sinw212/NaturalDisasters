@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import static androidx.appcompat.app.ActionBar.DISPLAY_SHOW_CUSTOM;
+
 public class NavigationBarMainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -21,6 +23,14 @@ public class NavigationBarMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            getSupportActionBar().setDisplayOptions(DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.custom_actionbar);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
         setContentView(R.layout.activity_navigationbar_main);
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
