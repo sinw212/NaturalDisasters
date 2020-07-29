@@ -5,12 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+
+    <Button
+        android:id="@+id/btn_earthquake"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Home"
-        android:textSize="30sp">
-    </TextView>
+        android:layout_height="wrap_content"
+        android:text="지진"/>
+
+    <Button
+        android:id="@+id/btn_typoon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="태풍"/>
+    <Button
+        android:id="@+id/btn_thunder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="낙뢰"/>
+
+    <Button
+        android:id="@+id/btn_heatwave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="폭염"/>
+    <Button
+        android:id="@+id/btn_rain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="호우"/>
+
+    <Button
+        android:id="@+id/btn_snow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="폭설"/>
 
 </LinearLayout>
