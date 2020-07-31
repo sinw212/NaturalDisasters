@@ -15,6 +15,10 @@ public class UserDAO {
 	//  SQL 질의 결과 변수
 	private ResultSet rs;
 	
+	public UserDAO() {
+		dbConnector = DBConnector.getInstance();
+	}
+	
 	private boolean checkID(String id) {    //  아이디 중복확인
 		String sql = "select ID from USER_INFO where ID = ?";
 		conn = dbConnector.getConnection();
@@ -57,6 +61,7 @@ public class UserDAO {
 				result = pstmt.executeUpdate();
 			} catch (SQLException e) {    //  예외처리
 				System.err.println("UserDAO join SQLExceptoin error");
+				result =  -1;    //  DB 오류
 			} finally {    //  자원해제
 				try {
 					if(conn != null) {conn.close();}
@@ -65,7 +70,6 @@ public class UserDAO {
 					System.err.println("UserDAO join close SQLException error");
 				}
 			}
-			result =  -1;    //  DB 오류
 		}
 		if(result == 1) {
 			return "JoinSuccess";
@@ -77,7 +81,7 @@ public class UserDAO {
 	}
 	
 	public String login(String id, String password) {    //  로그인
-		String sql = "select PASSWORD from PARENT_INFO where ID = ?";
+		String sql = "select PASSWORD from USER_INFO where ID = ?";
 		conn = dbConnector.getConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -135,7 +139,7 @@ public class UserDAO {
 	}
 	
 	public int newPW(String id, String newPassword, String phone) {    //  새로운 비밀번호 변경(비밀번호 잃어버렸을 때)
-		String sql = "update USER_INFO set PASSWROD = ? where ID = ? and PHONE = ?";
+		String sql = "update USER_INFO set PASSWORD = ? where ID = ? and PHONE = ?";
 		conn = dbConnector.getConnection();
 		PreparedStatement pstmt = null;
 		try {
@@ -171,6 +175,7 @@ public class UserDAO {
 				result = pstmt.executeUpdate();    //  비밀번호 변경 완료
 			} catch (SQLException e) {    //  예외처리
 				System.err.println("UserDAO changePW SQLExceptoin error");
+				result = -1;    //  DB 오류
 			} finally {    //  자원해제
 				try {
 					if(conn != null) {conn.close();}
@@ -179,13 +184,17 @@ public class UserDAO {
 					System.err.println("UserDAO changePW close SQLException error");
 				}
 			}
-			result = -1;    //  DB 오류
+			if(result != 1) {
+				result = -2;    //  기존 비밀번호가 정확하지 않음
+			}
 		}
 		
 		if(result == 1) {
-			return "ChangeSucess";
+			return "ChangeSuccess";
 		} else if(result == 0) {
 			return "NoID";
+		} else if(result == -2) {
+			return "NotPW";
 		} else {
 			return "DBError";
 		}

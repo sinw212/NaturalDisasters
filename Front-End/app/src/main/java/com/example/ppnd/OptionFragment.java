@@ -18,9 +18,11 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,11 +39,13 @@ public class OptionFragment extends Fragment {
     private Button btn_changePassword;
     private Button btn_logout;
 
+    private static RequestQueue requestQueue;
+
     SharedPreferences spf;
 
     private void btn_init() {
         btn_changePassword = getView().findViewById(R.id.btn_changePasswrod);
-        btn_logout = getView().findViewById(R.id.btn_login);
+        btn_logout = getView().findViewById(R.id.btn_logout);
     }
 
     private void edit_init() {
@@ -74,7 +78,12 @@ public class OptionFragment extends Fragment {
                 String pass = password.getText().toString();
                 String newPass = newPassword.getText().toString();
                 String newPassCheck = newPasswordCheck.getText().toString();
-                if(newPass.equals(newPassCheck)) {
+                if(pass.equals(newPass)) {
+                    Toast.makeText(getContext(), "기존 비밀번호와 변경할 비밀번호가 동일합니다.", Toast.LENGTH_LONG).show();
+                } else if(newPass.equals(newPassCheck)) {
+                    if(requestQueue == null) {
+                        requestQueue = Volley.newRequestQueue(getContext());
+                    }
                     changePassRequest(pass, newPass);
                 } else {
                     Toast.makeText(getContext(), "변경할 비밀번호가 일치하지 않습니다.", Toast.LENGTH_LONG).show();
@@ -91,11 +100,10 @@ public class OptionFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
     }
 
     private void changePassRequest(final String pass, final String newPass) {
-        String url = "";
+        String url = "http://tomcat.comstering.synology.me/PPND_Server/ChangePW.jsp";
         final String id = spf.getString("ID", "none");
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -103,15 +111,23 @@ public class OptionFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.d("Check", response);
                         switch (response) {
                             case "ChangeSuccess":
+                                Log.d("Check", "비밀번호 변경 성공");
                                 Toast.makeText(getActivity(), "비밀번호 변경 성공", Toast.LENGTH_LONG).show();
                                 SharedPreferences.Editor editor = spf.edit();
                                 editor.putString("Password", newPass);
                                 editor.apply();
+                                password.setText("");
+                                newPassword.setText("");
+                                newPasswordCheck.setText("");
                                 break;
                             case "NoID":
                                 Toast.makeText(getActivity(), "등록된 아이디가 아닙니다. ", Toast.LENGTH_SHORT).show();
+                                break;
+                            case "NotPW":
+                                Toast.makeText(getActivity(), "기존 비밀번호가 정확하지 않습니다", Toast.LENGTH_LONG).show();
                                 break;
                             case "DBError":
                                 Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
@@ -138,5 +154,9 @@ public class OptionFragment extends Fragment {
                 return params;
             }
         };
+
+        request.setShouldCache(false);
+        requestQueue.add(request);
+        Log.d("Check", "call request");
     }
 }

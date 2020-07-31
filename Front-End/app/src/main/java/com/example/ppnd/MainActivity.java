@@ -17,9 +17,11 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences auto;
 
-    private String url;
+    private static RequestQueue requestQueue;
 
     private void init() {
         idEdit = findViewById(R.id.login_id);
@@ -52,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auto = getSharedPreferences("MemberLogin", Activity.MODE_PRIVATE);
-        if(auto.getBoolean("AUTO", false)) {
+        if(auto.getBoolean("Auto", false)) {
             LoginPass();
         }
 
         init();
+
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,24 +71,30 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-            loginRequest(idEdit.getText().toString(), pwEdit.getText().toString());
+                if(requestQueue == null) {
+                    requestQueue = Volley.newRequestQueue(getApplicationContext());
+                }
+
+                loginRequest(idEdit.getText().toString(), pwEdit.getText().toString());
             }
         });
     }
 
     private void LoginPass() {
-        auto_login.setChecked(true);
+        Toast.makeText(getApplicationContext(), "로그인 되었습니다.", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), NavigationBarMainActivity.class);
         startActivity(intent);
     }
 
     private void loginRequest(final String id, final String password) {
+        String url = "http://tomcat.comstering.synology.me/PPND_Server/Login.jsp";
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.d("Check", response);
                         switch (response) {
                             case "LoginSuccess":
                                 Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
@@ -130,5 +139,9 @@ public class MainActivity extends AppCompatActivity {
                 return params;
             }
         };
+
+        request.setShouldCache(false);
+        requestQueue.add(request);
+        Log.d("Check", "call request");
     }
 }
