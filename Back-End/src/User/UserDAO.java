@@ -157,26 +157,38 @@ public class UserDAO {
 		return -1;    //  DB 오류
 	}
 	
-	public int changePW(String id, String password, String newPassword) {    //  패스워드 바꾸기(유저가 비밀번호 변경할 때)
-		String sql = "update USER_INFO set PASSWORD = ? where ID = ? and PASSWORD = ?";
-		conn = dbConnector.getConnection();
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, newPassword);    //  바꿀 비밀번호
-			pstmt.setString(2, id);    //  아이디
-			pstmt.setString(3, password);    //  이전 비밀번호
-			return pstmt.executeUpdate();    //  비밀번호 변경 완료
-		} catch (SQLException e) {    //  예외처리
-			System.err.println("UserDAO changePW SQLExceptoin error");
-		} finally {    //  자원해제
+	public String changePW(String id, String password, String newPassword) {    //  패스워드 바꾸기(유저가 비밀번호 변경할 때)
+		int result = 0;
+		if(!checkID(id)) {
+			String sql = "update USER_INFO set PASSWORD = ? where ID = ? and PASSWORD = ?";
+			conn = dbConnector.getConnection();
+			PreparedStatement pstmt = null;
 			try {
-				if(conn != null) {conn.close();}
-				if(pstmt != null) {pstmt.close();}
-			} catch(SQLException e) {
-				System.err.println("UserDAO changePW close SQLException error");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, newPassword);    //  바꿀 비밀번호
+				pstmt.setString(2, id);    //  아이디
+				pstmt.setString(3, password);    //  이전 비밀번호
+				result = pstmt.executeUpdate();    //  비밀번호 변경 완료
+			} catch (SQLException e) {    //  예외처리
+				System.err.println("UserDAO changePW SQLExceptoin error");
+			} finally {    //  자원해제
+				try {
+					if(conn != null) {conn.close();}
+					if(pstmt != null) {pstmt.close();}
+				} catch(SQLException e) {
+					System.err.println("UserDAO changePW close SQLException error");
+				}
 			}
+			result = -1;    //  DB 오류
 		}
-		return -1;    //  DB 오류
+		
+		if(result == 1) {
+			return "ChangeSucess";
+		} else if(result == 0) {
+			return "NoID";
+		} else {
+			return "DBError";
+		}
+		
 	}
 }
