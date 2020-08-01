@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scrollbarFadeDuration="0"
-        android:scrollbarSize="5dp"
+        android:scrollbarSize="10dp"
         android:scrollbarThumbVertical="@android:color/darker_gray"
         android:scrollbars="vertical" />
 
@@ -45,21 +45,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/earthquake"/>
+            android:background="@drawable/earthquake_icon"/>
 
         <Button
             android:id="@+id/btn_typhoon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/typhoon"/>
+            android:background="@drawable/typhoon_icon"/>
 
         <Button
             android:id="@+id/btn_thunder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/thunder"/>
+            android:background="@drawable/thunder_icon"/>
     </LinearLayout>
 
     <LinearLayout
@@ -73,21 +73,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/hitwave"/>
+            android:background="@drawable/hitwave_icon"/>
 
         <Button
             android:id="@+id/btn_rain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/rain"/>
+            android:background="@drawable/rain_icon"/>
 
         <Button
             android:id="@+id/btn_snow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/snow"/>
+            android:background="@drawable/snow_icon"/>
     </LinearLayout>
 
     <Button
@@ -96,6 +96,6 @@
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:layout_gravity="right"
-        android:background="@drawable/emergency"/>
+        android:background="@drawable/emergency_icon"/>
 
 </LinearLayout>

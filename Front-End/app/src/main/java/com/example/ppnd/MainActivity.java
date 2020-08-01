@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //퍼미션 요청 결과가 onRequestPermissionsResult에서 수신
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResult){
         super.onRequestPermissionsResult(requestCode, permissions, grantResult);

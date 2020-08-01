@@ -10,6 +10,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.ppnd.Fragment.HomeFragment;
+import com.example.ppnd.Fragment.NewsFlashFragment;
+import com.example.ppnd.Fragment.OptionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import static androidx.appcompat.app.ActionBar.DISPLAY_SHOW_CUSTOM;
 
