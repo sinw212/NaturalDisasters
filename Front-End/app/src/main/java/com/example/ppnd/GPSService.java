@@ -1,6 +1,8 @@
 package com.example.ppnd;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -9,20 +11,39 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class GPSService extends Service implements LocationListener {
 
@@ -34,11 +55,14 @@ public class GPSService extends Service implements LocationListener {
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60;    //  1분
     protected LocationManager locationManager = null;
 
+    private static RequestQueue requestQueue;
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         serviceIntent = intent;
         getLocation();
         initializeNotification();
+        getPhoneNumber();
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -121,6 +145,24 @@ public class GPSService extends Service implements LocationListener {
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
     }
 
+    public String getPhoneNumber() {
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+        } else {
+            return null;
+        }
+        String phoneNumber = telephonyManager.getLine1Number();
+        Log.d("Check", phoneNumber + "test");
+        return phoneNumber + "test";
+    }
+
     public Location getLocation() {
         try {
             Log.d("Check", "getLocation");
@@ -179,11 +221,8 @@ public class GPSService extends Service implements LocationListener {
         } catch (Exception e) {
             Log.d("Check", "" + e.toString());
         }
-
         return location;
     }
-
-
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -194,6 +233,65 @@ public class GPSService extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         Log.d("Check", "Call onLocationChanged");
+        addressCode(location.getLatitude(), location.getLongitude());
+    }
+
+    private String addressCode(double lati, double longi) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+        List<Address> addressList = null;
+
+        try {
+            addressList = geocoder.getFromLocation(lati, longi, 7);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(addressList == null || addressList.size() ==0) {
+            return "주소 미발견";
+        }
+        Address address = addressList.get(0);
+        Log.d("Check", address.getAddressLine(0).toString());
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        weatherRequest("");
+        return "tt";
+    }
+
+    private void weatherRequest(final String stnId) {
+        String url = "http://apis.data.go.kr/1360000/WthrWrnInfoService/getWthrWrnList";
+        Calendar calendar = Calendar.getInstance();
+
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Check", response);
+                    }
+                },
+                new Response.ErrorListener() { //에러발생시 호출될 리스너 객체
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ServiceKey", "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D");
+                params.put("pageNo", "1");
+                params.put("numOfRows", "10");
+                params.put("dataType", "JSON");
+                params.put("stnId", stnId);
+                params.put("fromTnFc", "");
+                return params;
+            }
+        };
+
+        request.setShouldCache(false);
+        requestQueue.add(request);
+        Log.d("Check", "call request");
     }
 
     @Override
