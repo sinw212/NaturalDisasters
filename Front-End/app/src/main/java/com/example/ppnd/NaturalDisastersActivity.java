@@ -2,6 +2,7 @@ package com.example.ppnd;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -9,10 +10,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.net.URL;
+import java.net.URLConnection;
+
 public class NaturalDisastersActivity extends AppCompatActivity {
     Button btn_action, btn_shelter;
     TextView text_title, text_content;
     String type;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +32,7 @@ public class NaturalDisastersActivity extends AppCompatActivity {
 
         text_title = (TextView) findViewById(R.id.text_title);
         text_content = (TextView) findViewById(R.id.text_content);
+
 
         if(type.equals("earthquake")){
             text_title.setText("");

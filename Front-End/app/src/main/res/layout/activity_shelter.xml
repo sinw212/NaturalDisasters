@@ -6,17 +6,11 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <ScrollView
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/result"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="8sp"
-            android:textStyle="bold"/>
-
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        />
 
 </LinearLayout>
