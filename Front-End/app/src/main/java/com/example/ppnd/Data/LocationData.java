@@ -1,9 +1,9 @@
 package com.example.ppnd.Data;
 
-public class CurrentLocationData {
+public class LocationData {
     private String Data;
 
-    public CurrentLocationData(String data) {
+    public LocationData(String data) {
         Data = data;
     }
 

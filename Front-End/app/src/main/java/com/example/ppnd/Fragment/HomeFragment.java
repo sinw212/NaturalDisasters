@@ -29,19 +29,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.example.ppnd.Adapter.CurrentLocationAdapter;
-import com.example.ppnd.Data.CurrentLocationData;
+import com.example.ppnd.Adapter.LocationAdapter;
+import com.example.ppnd.Data.LocationData;
+import com.example.ppnd.Other.DataParsing;
 import com.example.ppnd.Other.LocationCode;
 import com.example.ppnd.R;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import java.io.IOException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -55,22 +50,18 @@ public class HomeFragment extends Fragment {
     private List<Address> addresses;
 
     private RequestQueue requestQueue;
-    private String serviceKey;
-    private SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-    private String date;
 
     private RecyclerView recyclerview = null;
     private LinearLayoutManager layoutManager = null;
-    private CurrentLocationAdapter currentlocationAdapter = null;
-    private ArrayList<CurrentLocationData> arrayList;
-    private CurrentLocationData currentlocationData;
+    private LocationAdapter currentlocationAdapter;
+    private ArrayList<LocationData> arrayList;
+    private LocationData currentlocationData;
 
     private TextView current_location;
     private Button btn_earthquake, btn_typhoon, btn_thunder,
             btn_hitwave, btn_rain, btn_snow, btn_emergency;
 
     private String data;
-    private StringBuffer buffer = new StringBuffer();
     private String current_address = null;
     private int current_code;
 
@@ -92,7 +83,7 @@ public class HomeFragment extends Fragment {
 
         arrayList = new ArrayList<>();
 
-        currentlocationAdapter = new CurrentLocationAdapter(arrayList);
+        currentlocationAdapter = new LocationAdapter(arrayList);
         recyclerview.setAdapter(currentlocationAdapter);
 
         //GPS 미 설정시 false, 설정 시 true
@@ -120,8 +111,6 @@ public class HomeFragment extends Fragment {
             //GPS 위도 경도 기반 위치 확인
             LocationTransmission();
         }
-
-        serviceKey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D";
 
         if(requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getActivity());
@@ -186,43 +175,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    //현재 위치 기상청 특보
-    private String current_location_XmlData() {
-        try {
-            URL url = new URL("http://apis.data.go.kr/1360000/WthrWrnInfoService/getWthrWrnMsg?serviceKey=" +
-                    serviceKey+"&pageNo=1&numOfRows=10&dataType=XML&stnId="+current_code+"&fromTmFc="+date+"&toTmFc="+date+"&");
-
-            XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = parserCreator.newPullParser();
-
-            parser.setInput(url.openStream(), null);
-
-            int parserEvent = parser.getEventType();
-
-            while(parserEvent != XmlPullParser.END_DOCUMENT) {
-                switch(parserEvent) {
-                    case XmlPullParser.START_TAG: //parser가 시작 태그를 만나면 실행
-                        if(parser.getName().equals("t2")) { //속보 발생 해당구역
-                            parser.next();
-                            buffer.append(parser.getText());//t2 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append("\n"); //줄바꿈 문자 추가
-                        }
-                        break;
-                    case XmlPullParser.TEXT: //parser가 내용에 접근했을 때
-                        break;
-                    case XmlPullParser.END_TAG:
-                        if(parser.getName().equals("item")) {
-                        }
-                        break;
-                }
-                parserEvent = parser.next();
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return buffer.toString();
-    }
-
     //리스너를 통해서 위치값을 업데이트 하여 위치 수신 진행
     private LocationListener locationListener = new LocationListener()
     {
@@ -239,12 +191,13 @@ public class HomeFragment extends Fragment {
             } catch (IOException e) {
                 System.err.println("homeFragment IOException error");
             }
-            if (addresses == null) { //주소를 찾지 못한 경우
-                current_location.setText(location.getLongitude() + " , " + location.getLatitude());
-            } else {
+            if (addresses.size() != 0) {
                 current_address = LocationCode.currentAddress(addresses.get(0).getAddressLine(0));
                 current_location.setText(current_address + " 속보");
                 current_code = LocationCode.currentLocationCode(current_address);
+            } else { //주소를 찾지 못한 경우
+                current_location.setText("주소를 찾지 못했습니다.");
+//                current_location.setText(location.getLongitude() + " , " + location.getLatitude());
             }
             locationManager.removeUpdates(locationListener); // 위치 업데이트 종료
 
@@ -253,7 +206,8 @@ public class HomeFragment extends Fragment {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    data = current_location_XmlData(); //아래 메소드를 호출하여 XML data를 파싱해서 String 객체로 얻어오기
+                    //GPS기준 현재 위치 속보 받아오기
+                    data = DataParsing.newsflashXmlData(current_code); //아래 메소드를 호출하여 XML data를 파싱해서 String 객체로 얻어오기
 
                     //UI Thread(Main Thread)를 제외한 어떤 Thread도 화면을 변경할 수 없기때문에
                     //runOnUiThread()를 이용하여 UI Thread가 TextView 글씨 변경하도록 함
@@ -262,7 +216,7 @@ public class HomeFragment extends Fragment {
                         public void run() {
                             String split_data[] = data.split("\n");
                             for(int i=0; i<split_data.length; i++) {
-                                currentlocationData = new CurrentLocationData(split_data[i]);
+                                currentlocationData = new LocationData(split_data[i]);
 
                                 arrayList.add(currentlocationData); // RecyclerView의 마지막 줄에 삽입
                                 currentlocationAdapter.notifyDataSetChanged();
@@ -329,9 +283,6 @@ public class HomeFragment extends Fragment {
         btn_rain = getView().findViewById(R.id.btn_rain); //호우 버튼
         btn_snow = getView().findViewById(R.id.btn_snow); //폭설 버튼
         btn_emergency = getView().findViewById(R.id.btn_emergency); //119 신고 버튼
-
-        //오늘 날짜 받아오기
-        date = format.format(new Date());
 
         //GPS ON/OFF 확인하여 OFF일 시 GPS 설정화면으로 이동진행
         locationManagerGPS = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
