@@ -32,7 +32,7 @@ public class LocationCode {
         else if(Address.contains("대전"))
             current_address = "대전광역시";
         else if(Address.contains("세종"))
-            current_address = "세종사";
+            current_address = "세종시";
         else if(Address.contains("충청남도"))
             current_address = "충청남도";
         else if(Address.contains("충청북도"))

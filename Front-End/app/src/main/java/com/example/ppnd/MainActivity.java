@@ -10,9 +10,11 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,11 +24,21 @@ public class MainActivity extends AppCompatActivity {
     private final int PERMISSIONREQUEST_RESULT=100; // 콜백 호출시 requestcode로 넘어가는 구분자
 
     private Button btn_login;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //SplashActivity의 인텐트를 받아서 text값을 저장
+        final Intent intent = getIntent();
+        final String current_address = intent.getStringExtra("current_address");
+        final String current_location_newsflash = intent.getStringExtra("current_location_newsflash");
+        final String nation_wide_newsflash = intent.getStringExtra("nation_wide_newsflash");
+        final Bitmap satellite_image = intent.getParcelableExtra("satellite_image");
+
+        Log.d("진입22", current_address);
 
         btn_login = findViewById(R.id.btn_login);
 
@@ -38,6 +50,13 @@ public class MainActivity extends AppCompatActivity {
                         ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
 
                     Intent intent = new Intent(getApplicationContext(), NavigationBarMainActivity.class);
+                    intent.putExtra("current_location_newsflash", current_location_newsflash);
+                    intent.putExtra("nation_wide_newsflash", nation_wide_newsflash);
+                    intent.putExtra("satellite_image", satellite_image);
+                    intent.putExtra("current_address", current_address);
+
+                    Log.d("진입222", current_address);
+
                     startActivity(intent);
                     finish();
                 }

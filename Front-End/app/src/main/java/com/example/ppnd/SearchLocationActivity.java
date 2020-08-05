@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.example.ppnd.Adapter.LocationAdapter;
 import com.example.ppnd.Data.LocationData;
 import com.example.ppnd.Other.DataParsing;
@@ -17,8 +15,6 @@ import com.example.ppnd.Other.DataParsing;
 import java.util.ArrayList;
 
 public class SearchLocationActivity extends AppCompatActivity {
-
-    private RequestQueue requestQueue;
 
     private RecyclerView recyclerview = null;
     private LinearLayoutManager layoutManager = null;
@@ -51,10 +47,6 @@ public class SearchLocationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         search_address = intent.getStringExtra("current_address");
         search_code = intent.getIntExtra("current_code", 0);
-
-        if(requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(this);
-        }
 
         search_location.setText(search_address + " 속보");
 

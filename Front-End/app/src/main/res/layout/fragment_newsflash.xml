@@ -67,10 +67,11 @@
         android:textColor="#000000"
         android:textStyle="bold"/>
 
-    <ImageView
-        android:id="@+id/imageView_satellite"
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/photoView_satellite"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:scaleType="fitXY"
         android:layout_marginTop="20dp"/>
 
 </LinearLayout>

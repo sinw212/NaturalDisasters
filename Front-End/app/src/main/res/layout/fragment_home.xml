@@ -94,7 +94,7 @@
         android:id="@+id/btn_emergency"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="right"
         android:background="@drawable/emergency_icon"/>
 

@@ -1,6 +1,9 @@
 package com.example.ppnd;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -37,6 +40,15 @@ public class NavigationBarMainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_navigationbar_main);
 
+        //MainActivity의 인텐트를 받아서 text값을 저장
+        Intent intent = getIntent();
+        String current_address = intent.getStringExtra("current_address");
+        String current_location_newsflash = intent.getStringExtra("current_location_newsflash");
+        String nation_wide_newsflash = intent.getStringExtra("nation_wide_newsflash");
+        Bitmap satellite_image = intent.getParcelableExtra("satellite_image");
+
+        Log.d("진입33", current_address);
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_layout, home_fragment).commitAllowingStateLoss();
 
@@ -63,6 +75,21 @@ public class NavigationBarMainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        //번들객체 생성, 값 저장
+        Bundle bundle1 = new Bundle();
+        Bundle bundle2 = new Bundle();
+
+        //fragment로 번들 전달
+        home_fragment.setArguments(bundle1);
+        newsflash_fragment.setArguments(bundle2);
+
+        bundle1.putString("current_address",current_address);
+        bundle1.putString("current_location_newsflash",current_location_newsflash);
+        bundle2.putString("nation_wide_newsflash",nation_wide_newsflash);
+        bundle2.putParcelable("satellite_image", satellite_image);
+
+        Log.d("진입333", current_address);
     }
 
     @Override
