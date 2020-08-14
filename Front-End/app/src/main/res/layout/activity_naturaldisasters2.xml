@@ -24,7 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:textStyle="bold"
         android:textSize="24sp"
         android:text="내용"
         android:layout_weight="9"
@@ -39,16 +38,19 @@
         android:layout_weight="10">
 
         <Button
-            android:id="@+id/btn_action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="행동요령"/>
+            android:id="@+id/btn_action2"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:background="@drawable/activity"
+            android:layout_marginRight="10dp"
+            />
 
         <Button
             android:id="@+id/btn_shelter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="대피소"/>
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:background="@drawable/shelter"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 
