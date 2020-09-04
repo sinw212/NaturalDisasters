@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ppnd.Adapter.LocationAdapter;
 import com.example.ppnd.Data.LocationData;
+import com.example.ppnd.NaturalDisasters2Activity;
 import com.example.ppnd.R;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class HomeFragment extends Fragment {
 
     private TextView current_location;
     private Button btn_earthquake, btn_typhoon, btn_thunder,
-            btn_hitwave, btn_rain, btn_snow, btn_emergency;
+            btn_heatwave, btn_rain, btn_snow, btn_emergency;
 
     @Nullable
     @Override
@@ -79,10 +80,13 @@ public class HomeFragment extends Fragment {
         });
 
         //폭염 버튼
-        btn_hitwave.setOnClickListener(new View.OnClickListener() {
+        btn_heatwave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //폭염 설명, 행동요령, 대피소
+                Intent intent = new Intent(getActivity(), NaturalDisasters2Activity.class);
+                intent.putExtra("type", "heatwave");
+                startActivity(intent);
             }
         });
 
@@ -138,7 +142,7 @@ public class HomeFragment extends Fragment {
         btn_earthquake = getView().findViewById(R.id.btn_earthquake); //지진 버튼
         btn_typhoon = getView().findViewById(R.id.btn_typhoon); //태풍 버튼
         btn_thunder = getView().findViewById(R.id.btn_thunder); //낙뢰 버튼
-        btn_hitwave = getView().findViewById(R.id.btn_hitwave); //폭염 버튼
+        btn_heatwave = getView().findViewById(R.id.btn_heatwave); //폭염 버튼
         btn_rain = getView().findViewById(R.id.btn_rain); //호우 버튼
         btn_snow = getView().findViewById(R.id.btn_snow); //폭설 버튼
         btn_emergency = getView().findViewById(R.id.btn_emergency); //119 신고 버튼

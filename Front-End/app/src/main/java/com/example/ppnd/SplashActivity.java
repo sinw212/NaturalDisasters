@@ -199,10 +199,10 @@ public class SplashActivity extends Activity {
     };
 
     //업데이트된 위치 값을 얻어와 수신
-    private void LocationTransmission(){
-        locationManager=(LocationManager)getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+    private void LocationTransmission() {
+        locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 
-        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION);
             // 무조건 퍼미션을 허용한다는 전제조건하에 진행 (필수적 권한)
             try {
@@ -217,8 +217,7 @@ public class SplashActivity extends Activity {
             } catch (SecurityException e) {
                 System.err.println("SecurityException error ");
             }
-        }
-        else{
+        } else {
             try {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치 제공자
                         1000, // 통지사이의 최소 시간 간격

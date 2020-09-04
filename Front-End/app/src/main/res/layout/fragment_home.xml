@@ -69,11 +69,11 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_hitwave"
+            android:id="@+id/btn_heatwave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/hitwave_icon"/>
+            android:background="@drawable/heatwave_icon"/>
 
         <Button
             android:id="@+id/btn_rain"

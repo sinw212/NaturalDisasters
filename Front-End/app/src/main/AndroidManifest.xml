@@ -48,6 +48,10 @@
         <activity
             android:name=".SearchLocationActivity"
             android:exported="false"/>
+
+        <activity
+            android:name=".NaturalDisasters2Activity"
+            android:exported="false"/>
     </application>
 
 </manifest>
