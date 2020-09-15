@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ppnd.Fragment.HomeFragment;
 import com.example.ppnd.Fragment.NewsFlashFragment;
+import com.example.ppnd.Fragment.VolunteerFragment;
 import com.example.ppnd.Fragment.OptionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import static androidx.appcompat.app.ActionBar.DISPLAY_SHOW_CUSTOM;
@@ -25,6 +26,7 @@ public class NavigationBarMainActivity extends AppCompatActivity {
 
     private HomeFragment home_fragment = new HomeFragment();
     private NewsFlashFragment newsflash_fragment = new NewsFlashFragment();
+    private VolunteerFragment volunteer_fragment = new VolunteerFragment();
     private OptionFragment option_fragment = new OptionFragment();
 
     @Override
@@ -65,6 +67,10 @@ public class NavigationBarMainActivity extends AppCompatActivity {
                     }
                     case R.id.newsflash: {
                         transaction.replace(R.id.frame_layout, newsflash_fragment).commitAllowingStateLoss();
+                        break;
+                    }
+                    case R.id.volunteer: {
+                        transaction.replace(R.id.frame_layout, volunteer_fragment).commitAllowingStateLoss();
                         break;
                     }
                     case R.id.option: {

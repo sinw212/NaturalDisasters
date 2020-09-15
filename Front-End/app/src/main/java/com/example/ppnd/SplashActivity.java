@@ -54,7 +54,7 @@ public class SplashActivity extends Activity {
         locationManagerGPS = (LocationManager)getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 
         //GPS 미 설정시 false, 설정 시 true
-        if (!locationManagerGPS.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if(!locationManagerGPS.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             // GPS 설정 off일 시 설정화면으로 이동
             new AlertDialog.Builder(getApplicationContext())
                     .setCancelable(false)
@@ -109,14 +109,9 @@ public class SplashActivity extends Activity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                for (int i = 0; i < 10; i++) {
+                for (int i = 1; i < 4; i++) {
                     switch (i * 10) {
                         case 10:
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
                             current_location_newsflash = dataParsing.newsflashXmlData(current_code);
                             Log.d("진입11", String.valueOf(current_code));
                             checkSecurity += 1;
@@ -132,6 +127,7 @@ public class SplashActivity extends Activity {
                             break;
                     }
                     progressDialog.setProgress(i * 10);
+                    Log.d("진입11", "테스트1");
                     Thread.sleep(100);
                 }
             } catch (InterruptedException e) {
@@ -142,7 +138,9 @@ public class SplashActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
+            Log.d("진입11", "테스트2");
             progressDialog.dismiss();
+            Log.d("진입11", "테스트3");
             super.onPostExecute(result);
             if (checkSecurity == 3) { // 수정필요 추후
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -151,7 +149,7 @@ public class SplashActivity extends Activity {
                 intent.putExtra("satellite_image", satellite_image);
                 intent.putExtra("current_address", current_address);
 
-                Log.d("진입11", current_address);
+//                Log.d("진입11", current_address);
 
                 startActivity(intent);
                 finish();
@@ -181,7 +179,9 @@ public class SplashActivity extends Activity {
             if (addresses.size() != 0) {
                 full_address = addresses.get(0).getAddressLine(0);
                 current_address = LocationCode.currentAddress(full_address);
+//                Log.d("진입ㅂcurrent_address", current_address);
                 current_code = LocationCode.currentLocationCode(current_address);
+//                Log.d("진입ㅂcurrent_code", String.valueOf(current_code));
             } else { //주소를 찾지 못한 경우
                 System.err.println(location.getLongitude() + " , " + location.getLatitude());
             }
@@ -214,6 +214,24 @@ public class SplashActivity extends Activity {
                         100, // 통지사이의 최소 시간 간격
                         1, // 통지사이의 최소 변경 거리
                         locationListener);
+                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+                try {
+                    addresses = geocoder.getFromLocation(
+                            location.getLatitude(), location.getLongitude(), 1);
+                } catch (IOException e) {
+                    System.err.println("IOException error");
+                }
+                if (addresses.size() != 0) {
+                    full_address = addresses.get(0).getAddressLine(0);
+                    current_address = LocationCode.currentAddress(full_address);
+                    Log.d("진입ㅂcurrent_address", current_address);
+                    current_code = LocationCode.currentLocationCode(current_address);
+                    Log.d("진입ㅂcurrent_code", String.valueOf(current_code));
+                } else { //주소를 찾지 못한 경우
+                    System.err.println(location.getLongitude() + " , " + location.getLatitude());
+                }
             } catch (SecurityException e) {
                 System.err.println("SecurityException error ");
             }
