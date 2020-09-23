@@ -34,6 +34,11 @@ public class HomeFragment extends Fragment {
     private Button btn_earthquake, btn_typhoon, btn_thunder,
             btn_heatwave, btn_rain, btn_snow, btn_emergency;
 
+    private String data;
+    private String current_address;
+
+    private Intent intent;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         initView();
+
 
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerview.setLayoutManager(layoutManager);
@@ -60,6 +66,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //지진 설명, 행동요령, 대피소
+                intent = new Intent(getActivity(), NaturalDisasters2Activity.class);
+                intent.putExtra("type", "earthquake");
+                startActivity(intent);
             }
         });
 
@@ -84,7 +93,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //폭염 설명, 행동요령, 대피소
-                Intent intent = new Intent(getActivity(), NaturalDisasters2Activity.class);
+                intent = new Intent(getActivity(), NaturalDisasters2Activity.class);
                 intent.putExtra("type", "heatwave");
                 startActivity(intent);
             }
@@ -116,17 +125,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //NavigationBarMainActivity에서 전달한 번들 저장
+        //MainActivity에서 전달한 번들 저장
         Bundle bundle = getArguments();
-        String current_address = bundle.getString("current_address"); //GPS기준 현재 위치 주소
-        String data = bundle.getString("current_location_newsflash"); //GPS기준 현재 위치 속보
-
-        Log.d("진입44", current_address);
-        Log.d("진입444", data);
+        Log.d("진입6666", "ㅇㅇ");
+        current_address = bundle.getString("current_address"); //GPS기준 현재 위치 주소
+        Log.d("진입7777", current_address);
+        data = bundle.getString("current_location_newsflash"); //GPS기준 현재 위치 속보
+        Log.d("진입8888", data);
 
         current_location.setText(current_address + " 속보");
 
-        String []split_data = data.split("\n");
+        String[] split_data = data.split("\n");
         int size = split_data.length;
         for (int i = 0; i < size; i++) {
             currentlocationData = new LocationData(split_data[i]);
@@ -134,6 +143,33 @@ public class HomeFragment extends Fragment {
             arrayList.add(currentlocationData); // RecyclerView의 마지막 줄에 삽입
             currentlocationAdapter.notifyDataSetChanged();
         }
+
+        /*
+        //XML 파싱해서 Adapter에 연결하는 과정
+        //Android 4.0 이상 부터는 네트워크를 이용할 때 반드시 Thread 사용해야 함
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //GPS기준 현재 위치 속보 받아오기
+                data = DataParsing.newsflashXmlData(current_code); //아래 메소드를 호출하여 XML data를 파싱해서 String 객체로 얻어오기
+
+                //UI Thread(Main Thread)를 제외한 어떤 Thread도 화면을 변경할 수 없기때문에
+                //runOnUiThread()를 이용하여 UI Thread가 TextView 글씨 변경하도록 함
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String split_data[] = data.split("\n");
+                        for(int i=0; i<split_data.length; i++) {
+                            currentlocationData = new LocationData(split_data[i]);
+
+                            arrayList.add(currentlocationData); // RecyclerView의 마지막 줄에 삽입
+                            currentlocationAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
+        }).start();
+        */
     }
 
     private void initView() {

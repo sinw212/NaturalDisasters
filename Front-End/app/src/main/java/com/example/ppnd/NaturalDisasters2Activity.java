@@ -30,7 +30,13 @@ public class NaturalDisasters2Activity extends AppCompatActivity {
         text_title = findViewById(R.id.text_title);
         text_content = findViewById(R.id.text_content);
 
-        if(type.equals("heatwave")){
+        if(type.equals("earthquake")) {
+            linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.earthquake_background));
+            text_title.setText("지진");
+            text_content.setText(" 지진이란 지구 내부에서 오랜기간 축적된 에너지가 갑작스럽게 방출되어 지구 또는 지표를 흔드는 현상이다.\n\n" +
+                    "지진은 지표면의 단충대가 끊어지면서 발생할 수 있으며, 지하 내부에서의 폭발, 지하 마그마의 이동, 탄광 폭발, 산사태, 조석력 그리고 지하수의 순환 과정에서 크고 작은 지진들이 발생한다.\n");
+        }
+        else if(type.equals("heatwave")){
             linearlayout_background.setBackground(ContextCompat.getDrawable(this, R.drawable.heatwave_background));
             text_title.setText("폭염");
             text_content.setText(" 폭염이란 단순한 더위가 아닌 비정상적인 고온 현상이 여러 날 지속되는 것이다.\n\n" +

@@ -19,7 +19,18 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config">
+
+        <receiver
+            android:name=".Other.ReStartReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <service
+            android:name=".Other.GPSService"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity
             android:name=".SplashActivity"
@@ -34,21 +45,12 @@
         </activity>
 
         <activity
-            android:name=".SignUpActivity"
-            android:exported="false"/>
-
-        <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="false"/>
         <activity
-            android:name=".NavigationBarMainActivity"
-            android:exported="false"/>
-
-        <activity
             android:name=".SearchLocationActivity"
             android:exported="false"/>
-
         <activity
             android:name=".NaturalDisasters2Activity"
             android:exported="false"/>

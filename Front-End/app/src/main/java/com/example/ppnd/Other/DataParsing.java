@@ -2,16 +2,8 @@ package com.example.ppnd.Other;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Base64;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -21,8 +13,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DataParsing extends AppCompatActivity {
 
@@ -54,7 +44,7 @@ public class DataParsing extends AppCompatActivity {
             int parserEvent = parser.getEventType();
 
             //NoData일때 if문 처리해주기
-           while(parserEvent != XmlPullParser.END_DOCUMENT) {
+            while(parserEvent != XmlPullParser.END_DOCUMENT) {
                 switch(parserEvent) {
                     case XmlPullParser.START_TAG: //parser가 시작 태그를 만나면 실행
                         if(parser.getName().equals("t2")) { //속보 발생 해당구역
@@ -77,13 +67,13 @@ public class DataParsing extends AppCompatActivity {
         return buffer.toString();
     }
 
-    public Bitmap satelliteXmlData() {
+    public static Bitmap satelliteXmlData() {
         try {
-            URL url = new URL("http://www.weather.go.kr/repositary/image/sat/gk2a/KO/gk2a_ami_le1b_ir105_ko020lc_202008041646.thn.png");
+            URL url = new URL("http://www.weather.go.kr/repositary/image/sat/gk2a/KO/gk2a_ami_le1b_ir105_ko020lc_202009221646.thn.png");
             URLConnection conn = url.openConnection();
             conn.connect();
             BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
-            Bitmap bm = BitmapFactory.decodeStream(bis);
+            bm = BitmapFactory.decodeStream(bis);
             bis.close();
         } catch (Exception e) { }
 

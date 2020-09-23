@@ -2,251 +2,195 @@ package com.example.ppnd;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.AsyncTask;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.ppnd.Other.DataParsing;
-import com.example.ppnd.Other.LocationCode;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import com.example.ppnd.Other.GPSService;
 
 public class SplashActivity extends Activity {
-    // GPS
-    private final int REQUEST_CODE_LOCATION=2;
-    private LocationManager locationManagerGPS, locationManager;
-    private Geocoder geocoder;
-    private List<Address> addresses;
+    private Intent foregroundIntent;
+    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
+    private static final int PERMISSIONS_REQUEST_CODE = 100;
+    private String[] REQUIRED_PERMISSIONS = {Manifest.permission.CALL_PHONE,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION};
 
-    private String full_address, current_address;
-    private int current_code;
-
-    private String current_location_newsflash,nation_wide_newsflash;
-    private Bitmap satellite_image;
-    private int checkSecurity = 0;
-    private DataParsing dataParsing = new DataParsing();
+    private final int PERMISSIONREQUEST_RESULT=100; // 콜백 호출시 requestcode로 넘어가는 구분자
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //GPS ON/OFF 확인하여 OFF일 시 GPS 설정화면으로 이동진행
-        locationManagerGPS = (LocationManager)getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-
-        //GPS 미 설정시 false, 설정 시 true
-        if(!locationManagerGPS.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            // GPS 설정 off일 시 설정화면으로 이동
-            new AlertDialog.Builder(getApplicationContext())
-                    .setCancelable(false)
-                    .setTitle("GPS 미설정 알림")
-                    .setIcon(R.drawable.main_icon)
-                    .setMessage("GPS가 미설정 되어있어, 위급 시 속보 알림을 받지 못할 우려가 있으니 GPS 사용을 허용해주세요\n" +
-                            "허용한 후, 원활한 사용을 위해 앱을 다시 켜주십시오.")
-                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            Intent setting = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            setting.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(setting);
-                            getParent().finish();
-                        }
-                    }).show();
-        }
-        else // GPS 설정 on일 시 기능 수행 가능
-        {
-            //GPS 위도 경도 기반 위치 확인
-            LocationTransmission();
-        }
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_DENIED ||
-                ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_DENIED||
-                ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_DENIED)) {
-
-            PrograssTask task = new PrograssTask();
-            task.execute();
-        }
-        else{
-            startActivity(new Intent(getApplicationContext(),MainActivity.class)); //권한 미허용으로 인해 '권한 허용' 액티비티 연결
-            finish(); // 해당 액티비티 종료
-        }
-    }
-
-    private class PrograssTask extends AsyncTask<Void, Void, Void> {
-        ProgressDialog progressDialog = new ProgressDialog(
-                SplashActivity.this);
-
-        @Override
-        protected void onPreExecute() {
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("설정중입니다");
-            progressDialog.setCanceledOnTouchOutside(false); // 프로그래스 끄기 방지
-            progressDialog.show();
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                for (int i = 1; i < 4; i++) {
-                    switch (i * 10) {
-                        case 10:
-                            current_location_newsflash = dataParsing.newsflashXmlData(current_code);
-                            Log.d("진입11", String.valueOf(current_code));
-                            checkSecurity += 1;
-                            break;
-                        case 20:
-                            nation_wide_newsflash = dataParsing.newsflashXmlData(108);
-                            checkSecurity += 1;
-                            break;
-                        case 30:
-                            satellite_image = dataParsing.satelliteXmlData();
-                            checkSecurity += 1;
-                        default:
-                            break;
-                    }
-                    progressDialog.setProgress(i * 10);
-                    Log.d("진입11", "테스트1");
-                    Thread.sleep(100);
-                }
-            } catch (InterruptedException e) {
-                System.err.println("SplashActivity InterruptedException error ");
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            Log.d("진입11", "테스트2");
-            progressDialog.dismiss();
-            Log.d("진입11", "테스트3");
-            super.onPostExecute(result);
-            if (checkSecurity == 3) { // 수정필요 추후
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("current_location_newsflash", current_location_newsflash);
-                intent.putExtra("nation_wide_newsflash", nation_wide_newsflash);
-                intent.putExtra("satellite_image", satellite_image);
-                intent.putExtra("current_address", current_address);
-
-//                Log.d("진입11", current_address);
-
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(SplashActivity.this, "실패했습니다. 다시 앱을 설치해주세요.", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
-    }
-
-    //리스너를 통해서 위치값을 업데이트 하여 위치 수신 진행
-    private LocationListener locationListener = new LocationListener()
-    {
-        // 위치값이 갱신되면 이벤트 발생
-        // 위치 제공자 GPS:위성 수신으로 정확도가 높다, 실내사용 불가,위치 제공자,  Network:인터넷 엑세스 수신으로 정확도가 아쉽다, 실내 사용 가능
-        @Override
-        public void onLocationChanged(Location location) {
-            LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-            geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-
-            try {
-                addresses = geocoder.getFromLocation(
-                        location.getLatitude(), location.getLongitude(), 1);
-            } catch (IOException e) {
-                System.err.println("IOException error");
-            }
-            if (addresses.size() != 0) {
-                full_address = addresses.get(0).getAddressLine(0);
-                current_address = LocationCode.currentAddress(full_address);
-//                Log.d("진입ㅂcurrent_address", current_address);
-                current_code = LocationCode.currentLocationCode(current_address);
-//                Log.d("진입ㅂcurrent_code", String.valueOf(current_code));
-            } else { //주소를 찾지 못한 경우
-                System.err.println(location.getLongitude() + " , " + location.getLatitude());
-            }
-            locationManager.removeUpdates(locationListener); // 위치 업데이트 종료
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) { }
-
-        @Override
-        public void onProviderEnabled(String provider) { }
-
-        @Override
-        public void onProviderDisabled(String provider) { }
-    };
-
-    //업데이트된 위치 값을 얻어와 수신
-    private void LocationTransmission() {
-        locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION);
-            // 무조건 퍼미션을 허용한다는 전제조건하에 진행 (필수적 권한)
-            try {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치 제공자
-                        100, // 통지사이의 최소 시간 간격
-                        1, // 통지사이의 최소 변경 거리
-                        locationListener);
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치 제공자
-                        100, // 통지사이의 최소 시간 간격
-                        1, // 통지사이의 최소 변경 거리
-                        locationListener);
-                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-
-                try {
-                    addresses = geocoder.getFromLocation(
-                            location.getLatitude(), location.getLongitude(), 1);
-                } catch (IOException e) {
-                    System.err.println("IOException error");
-                }
-                if (addresses.size() != 0) {
-                    full_address = addresses.get(0).getAddressLine(0);
-                    current_address = LocationCode.currentAddress(full_address);
-                    Log.d("진입ㅂcurrent_address", current_address);
-                    current_code = LocationCode.currentLocationCode(current_address);
-                    Log.d("진입ㅂcurrent_code", String.valueOf(current_code));
-                } else { //주소를 찾지 못한 경우
-                    System.err.println(location.getLongitude() + " , " + location.getLatitude());
-                }
-            } catch (SecurityException e) {
-                System.err.println("SecurityException error ");
-            }
+        if (!checkLocationServicesStatus()) {
+            showDialogForLocationServiceSetting();
         } else {
-            try {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, // 등록할 위치 제공자
-                        1000, // 통지사이의 최소 시간 간격
-                        1, // 통지사이의 최소 변경 거리
-                        locationListener);
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치 제공자
-                        1000, // 통지사이의 최소 시간 간격
-                        1, // 통지사이의 최소 변경 거리
-                        locationListener);
-            } catch (SecurityException e) {
-                System.err.println("SecurityException error ");
+            checkRunTimePermission();
+        }
+        if (GPSService.serviceIntent == null) {
+            foregroundIntent = new Intent(this, GPSService.class);
+            startService(foregroundIntent);
+            Log.d("Check", "서비스 실행");
+
+
+        } else {
+            foregroundIntent = GPSService.serviceIntent;
+            Log.d("Check", "이미 실행중");
+        }
+
+        try {
+            Thread.sleep(3000);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("진입1111", "ㅇㅇ");
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != foregroundIntent) {
+            stopService(foregroundIntent);
+            foregroundIntent = null;
+        }
+    }
+
+    void checkRunTimePermission() {
+        //런타임 퍼미션 처리
+        // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
+        int hasFineLocationPermission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        int hasBackGROUNDLocationPermission =ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+
+        int hasReadPhoneStatePermission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_PHONE_STATE);
+
+        int hasSendSMSPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
+
+        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
+                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED &&
+                hasBackGROUNDLocationPermission == PackageManager.PERMISSION_GRANTED &&
+                hasReadPhoneStatePermission == PackageManager.PERMISSION_GRANTED &&
+                hasSendSMSPermission == PackageManager.PERMISSION_GRANTED){
+            // 2. 이미 퍼미션을 가지고 있다면
+            // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
+            // 3.  위치 값을 가져올 수 있음
+        } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
+            // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
+                // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
+                Toast.makeText(this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+                // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
+                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            } else {
+                // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
+                // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
+                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            }
+        }
+    }
+
+    //여기부터는 GPS 활성화를 위한 메소드들
+    private void showDialogForLocationServiceSetting() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("위치 서비스 비활성화");
+        builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
+                + "위치 설정을 수정하실래요?");
+        builder.setCancelable(true);
+        builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                Intent callGPSSettingIntent
+                        = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case GPS_ENABLE_REQUEST_CODE:
+                //사용자가 GPS 활성 시켰는지 검사
+                if (checkLocationServicesStatus()) {
+                    if (checkLocationServicesStatus()) {
+                        Log.d("Check", "onActivityResult : GPS 활성화 되있음");
+                        checkRunTimePermission();
+                        return;
+                    }
+                }
+                break;
+        }
+    }
+
+    public boolean checkLocationServicesStatus() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    //퍼미션 요청 결과가 onRequestPermissionsResult에서 수신
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResult){
+        super.onRequestPermissionsResult(requestCode, permissions, grantResult);
+
+        if(requestCode==PERMISSIONREQUEST_RESULT){
+            if(grantResult.length > 0){
+                for (int aGrantResult : grantResult) {
+                    if (aGrantResult == PackageManager.PERMISSION_DENIED) {
+                        // 권한이 하나라도 거부 될 시
+                        new AlertDialog.Builder(this)
+                                .setCancelable(false)
+                                .setTitle("사용 권한의 문제발생")
+                                .setIcon(R.drawable.main_icon)
+                                .setMessage("저희 서비스 사용을 위해서는 서비스의 요구권한을 필수적으로 허용해주셔야합니다.")
+                                .setPositiveButton("종료", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).setNegativeButton("권한 설정", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                        .setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
+                                getApplicationContext().startActivity(intent);
+                                finish();
+                            }
+                        }).show();
+                        return;
+                    }
+                }
             }
         }
     }
