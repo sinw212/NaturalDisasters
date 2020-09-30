@@ -22,15 +22,10 @@
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config">
 
-        <receiver
-            android:name=".Other.ReStartReceiver"
-            android:enabled="true"
-            android:exported="true"></receiver>
-
         <service
             android:name=".Other.GPSService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity
             android:name=".SplashActivity"
@@ -50,6 +45,9 @@
             android:exported="false"/>
         <activity
             android:name=".SearchLocationActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".NaturalDisasters1Activity"
             android:exported="false"/>
         <activity
             android:name=".NaturalDisasters2Activity"

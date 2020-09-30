@@ -2,25 +2,38 @@ package com.example.ppnd;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import android.app.AlertDialog;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.ppnd.Other.DataParsing;
 import com.example.ppnd.Other.GPSService;
+import com.example.ppnd.Other.LocationCode;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class SplashActivity extends Activity {
-    private Intent foregroundIntent;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     private String[] REQUIRED_PERMISSIONS = {Manifest.permission.CALL_PHONE,
@@ -28,7 +41,17 @@ public class SplashActivity extends Activity {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_BACKGROUND_LOCATION};
 
-    private final int PERMISSIONREQUEST_RESULT=100; // 콜백 호출시 requestcode로 넘어가는 구분자
+    private final int PERMISSIONREQUEST_RESULT=100; //콜백 호출시 requestcode로 넘어가는 구분자
+
+    private int checkSecurity = 0;
+
+    public String current_location_newsflash, nation_wide_newsflash;
+    private byte[] satellite_image;
+    private DataParsing dataParsing = new DataParsing();
+
+    private String full_address, current_address;
+    private int current_code;
+    private GPSService gpsService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,34 +62,148 @@ public class SplashActivity extends Activity {
         } else {
             checkRunTimePermission();
         }
-        if (GPSService.serviceIntent == null) {
-            foregroundIntent = new Intent(this, GPSService.class);
-            startService(foregroundIntent);
-            Log.d("Check", "서비스 실행");
 
+        gpsService = new GPSService(SplashActivity.this);
+        double latitude = GPSService.getLatitude(); //위도
+        double longitude = GPSService.getLongitude(); //경도
+        Log.d("진입위도", String.valueOf(latitude));
+        Log.d("진입경도", String.valueOf(longitude));
 
-        } else {
-            foregroundIntent = GPSService.serviceIntent;
-            Log.d("Check", "이미 실행중");
+        full_address = getCurrentAddress(latitude, longitude); //전체 주소
+
+        current_address = LocationCode.currentAddress(full_address);
+        Log.d("진입current_address", current_address);
+        current_code = LocationCode.currentLocationCode(current_address);
+        Log.d("진입current_code", String.valueOf(current_code));
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_DENIED ||
+                        ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_DENIED||
+                        ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_DENIED)) {
+
+            Log.d("진입1", "ㅇㅇ");
+            PrograssTask task = new PrograssTask();
+            Log.d("진입2", "ㅇㅇ");
+            task.execute();
         }
-
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {
-            e.printStackTrace();
+        else{
+            Log.d("진입MainActivity로 넘어가", "ㅇㅇ");
+            startActivity(new Intent(getApplicationContext(),MainActivity.class)); //권한 미허용으로 인해 '권한 허용' 액티비티 연결
+            finish(); // 해당 액티비티 종료
         }
-        Log.d("진입1111", "ㅇㅇ");
-        startActivity(new Intent(this,MainActivity.class));
-        finish();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (null != foregroundIntent) {
-            stopService(foregroundIntent);
-            foregroundIntent = null;
+    public class PrograssTask extends AsyncTask<Void, Void, Void> {
+        ProgressDialog progressDialog = new ProgressDialog(SplashActivity.this);
+        //가장 먼저 호출
+        @Override
+        protected void onPreExecute() {
+            Log.d("진입3", "ㅇㅇ");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage("설정중입니다");
+            progressDialog.setCanceledOnTouchOutside(false); // 프로그래스 끄기 방지
+            progressDialog.show();
+            super.onPreExecute();
         }
+
+        //작업 스레드를 실행하는 함수
+        //메인 스레드와는 별개로 오래 걸리는 작업 처리
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.d("진입4", "ㅇㅇ");
+            try {
+                for (int i = 1; i < 4; i++) {
+                    switch (i * 10) {
+                        case 10:
+                            current_location_newsflash = dataParsing.newsflashXmlData(current_code);
+                            Log.d("진입5", String.valueOf(current_code));
+                            checkSecurity += 1;
+                            break;
+                        case 20:
+                            nation_wide_newsflash = dataParsing.newsflashXmlData(108);
+                            Log.d("진입6", "ㅇㅇ");
+                            checkSecurity += 1;
+                            break;
+                        case 30:
+                            Bitmap bm = dataParsing.satelliteXmlData();
+                            //100K 이상 데이터를 Intent를 통해 put할 경우 에러 발생 -> 크기 줄여줘야함
+                            //원인 : android os에서 intent에 100K 이상 넣을 수 없기 때문
+                            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                            bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                            satellite_image = bos.toByteArray();
+                            Log.d("진입7", "ㅇㅇ");
+                            checkSecurity += 1;
+                        default:
+                            break;
+                    }
+                }
+                Log.d("진입8", "ㅇㅇ");
+                progressDialog.setProgress(1*10);
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Log.d("진입못해따", "ㅇㅇ");
+                System.err.println("MyAsyncTask InterruptedException error ");
+            }
+
+            return null;
+        }
+
+        //doInBackground() 실행이 정상적으로 처리가 완료되는 경우 실행
+        @Override
+        protected void onPostExecute(Void result) {
+            progressDialog.dismiss();
+            super.onPostExecute(result);
+
+            Log.d("진입9", "ㅇㅇ");
+
+            if(checkSecurity == 3) {
+                Log.d("진입10", "ㅇㅇ");
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("current_location_newsflash", current_location_newsflash);
+                intent.putExtra("nation_wide_newsflash", nation_wide_newsflash);
+                intent.putExtra("satellite_image", satellite_image);
+                intent.putExtra("current_address", current_address);
+                Log.d("진입11", current_address);
+
+                startActivity(intent);
+                finish();
+            } else {
+                Log.d("진입못해따", "ㅇㅇ");
+                Toast.makeText(SplashActivity.this, "실패했습니다. 다시 앱을 설치해주세요.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+
+        //doInBackground() 실행 도중 작업이 중단되는 경우 실행
+        @Override
+        protected void onCancelled(Void result) {
+            Log.d("진입왜???", "ㅇㅇ");
+            super.onCancelled(result);
+        }
+    }
+
+    public String getCurrentAddress(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 7);
+        } catch (IOException e) {
+            //네트워크 문제
+            Toast.makeText(this, "geocoder 서비스 사용불가", Toast.LENGTH_SHORT).show();
+            return "geocoder 서비스 사용불가";
+        } catch(IllegalArgumentException illegalArgumentException) {
+            Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_SHORT).show();
+            return "잘못된 GPS 좌표";
+        }
+
+        if(addresses == null || addresses.size() ==0) {
+            Toast.makeText(this, "주소 미발견", Toast.LENGTH_SHORT).show();
+            return "주소 미발견";
+        } else {
+            full_address = addresses.get(0).getAddressLine(0); //위경도 값을 주소로 변환한 전체 주소
+        }
+        return full_address;
     }
 
     void checkRunTimePermission() {
@@ -143,7 +280,7 @@ public class SplashActivity extends Activity {
                 //사용자가 GPS 활성 시켰는지 검사
                 if (checkLocationServicesStatus()) {
                     if (checkLocationServicesStatus()) {
-                        Log.d("Check", "onActivityResult : GPS 활성화 되있음");
+                        Log.d("Check", "onActivityResult : GPS 활성화 되어있음");
                         checkRunTimePermission();
                         return;
                     }
@@ -158,13 +295,13 @@ public class SplashActivity extends Activity {
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    //퍼미션 요청 결과가 onRequestPermissionsResult에서 수신
+    //퍼미션 요청 결과를 리턴받는 메소드
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResult){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResult) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResult);
 
-        if(requestCode==PERMISSIONREQUEST_RESULT){
-            if(grantResult.length > 0){
+        if (requestCode == PERMISSIONREQUEST_RESULT) {
+            if (grantResult.length > 0) {
                 for (int aGrantResult : grantResult) {
                     if (aGrantResult == PackageManager.PERMISSION_DENIED) {
                         // 권한이 하나라도 거부 될 시

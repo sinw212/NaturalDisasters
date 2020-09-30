@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ppnd.Adapter.LocationAdapter;
 import com.example.ppnd.Data.LocationData;
+import com.example.ppnd.NaturalDisasters1Activity;
 import com.example.ppnd.NaturalDisasters2Activity;
 import com.example.ppnd.R;
 
@@ -76,7 +77,10 @@ public class HomeFragment extends Fragment {
         btn_typhoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //태풍 설명, 행동요령, 대피소
+                //태풍 설명, 행동요령
+                intent = new Intent(getActivity(), NaturalDisasters1Activity.class);
+                intent.putExtra("type", "typhoon");
+                startActivity(intent);
             }
         });
 
@@ -84,7 +88,10 @@ public class HomeFragment extends Fragment {
         btn_thunder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //낙뢰 설명, 행동요령, 대피소
+                //낙뢰 설명, 행동요령
+                intent = new Intent(getActivity(), NaturalDisasters1Activity.class);
+                intent.putExtra("type", "thunder");
+                startActivity(intent);
             }
         });
 
@@ -103,7 +110,10 @@ public class HomeFragment extends Fragment {
         btn_rain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //호우 설명, 행동요령, 대피소
+                //호우 설명, 행동요령
+                intent = new Intent(getActivity(), NaturalDisasters1Activity.class);
+                intent.putExtra("type", "rain");
+                startActivity(intent);
             }
         });
 
@@ -111,7 +121,10 @@ public class HomeFragment extends Fragment {
         btn_snow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //폭설 설명, 행동요령, 대피소
+                //폭설 설명, 행동요령
+                intent = new Intent(getActivity(), NaturalDisasters1Activity.class);
+                intent.putExtra("type", "snow");
+                startActivity(intent);
             }
         });
 
@@ -127,11 +140,8 @@ public class HomeFragment extends Fragment {
 
         //MainActivity에서 전달한 번들 저장
         Bundle bundle = getArguments();
-        Log.d("진입6666", "ㅇㅇ");
         current_address = bundle.getString("current_address"); //GPS기준 현재 위치 주소
-        Log.d("진입7777", current_address);
         data = bundle.getString("current_location_newsflash"); //GPS기준 현재 위치 속보
-        Log.d("진입8888", data);
 
         current_location.setText(current_address + " 속보");
 

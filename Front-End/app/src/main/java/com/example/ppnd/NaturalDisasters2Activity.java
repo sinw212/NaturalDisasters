@@ -25,7 +25,7 @@ public class NaturalDisasters2Activity extends AppCompatActivity {
         type = intent.getExtras().getString("type");
 
         linearlayout_background = findViewById(R.id.linearlayout_background);
-        btn_behavior = findViewById(R.id.btn_action2);
+        btn_behavior = findViewById(R.id.btn_action);
         btn_shelter = findViewById(R.id.btn_shelter);
         text_title = findViewById(R.id.text_title);
         text_content = findViewById(R.id.text_content);

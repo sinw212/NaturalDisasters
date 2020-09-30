@@ -2,15 +2,17 @@ package com.example.ppnd.Other;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,6 +29,7 @@ public class DataParsing extends AppCompatActivity {
 
     //기상청 속보 받아오기
     public static String newsflashXmlData (int current_code) {
+        Log.d("진입속보", "ㅇㅇ");
         buffer = new StringBuffer();
 
         //오늘 날짜 받아오기 (속보 받아올 때 사용)
@@ -34,7 +37,7 @@ public class DataParsing extends AppCompatActivity {
 
         try {
             URL url = new URL("http://apis.data.go.kr/1360000/WthrWrnInfoService/getWthrWrnMsg?serviceKey=" +
-                    serviceKey+"&pageNo=1&numOfRows=10&dataType=XML&stnId="+current_code+"&fromTmFc="+date+"&toTmFc="+date+"&");
+                    serviceKey+"&pageNo=1&numOfRows=10&dataType=XML&stnId="+current_code+"&fromTmFc=20200924&toTmFc="+date+"&");
 
             XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserCreator.newPullParser();
@@ -64,59 +67,23 @@ public class DataParsing extends AppCompatActivity {
         } catch(Exception e) {
             e.printStackTrace();
         }
+        Log.d("진입buffer", String.valueOf(buffer));
         return buffer.toString();
     }
 
     public static Bitmap satelliteXmlData() {
         try {
-            URL url = new URL("http://www.weather.go.kr/repositary/image/sat/gk2a/KO/gk2a_ami_le1b_ir105_ko020lc_202009221646.thn.png");
-            URLConnection conn = url.openConnection();
+            URL url = new URL("http://www.weather.go.kr/repositary/image/sat/gk2a/KO/gk2a_ami_le1b_ir105_ko020lc_202009300004.thn.png");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true); //서버로부터 응답 수신
             conn.connect();
-            BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
-            bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-        } catch (Exception e) { }
+
+            InputStream is = conn.getInputStream();
+            bm = BitmapFactory.decodeStream(is); //Bitmap으로 변환
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return bm;
     }
-
-//    //한반도 위성 사진 받아오기
-//    public Bitmap satelliteXmlData() {
-//        String url ="http://www.weather.go.kr/repositary/image/sat/gk2a/KO/gk2a_ami_le1b_ir105_ko020lc_202008041646.thn.png";
-//        Log.d("진입1",url);
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        bm = StringToBitmap(response);
-//                        Log.d("진입2",bm.toString());
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        error.printStackTrace();
-//                    }
-//                }
-//        ){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String,String> params = new HashMap<String, String>();
-//                return params;
-//            }
-//        };
-//
-//        stringRequest.setShouldCache(false); // Volley 자체는 캐싱을 하기때문에, 캐싱기능을 꺼버림
-//        VolleyQueueSingleTon.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-//
-//        Log.d("진입3",bm.toString());
-//        return bm;
-//    }
-//
-//    //String을 Bitmap으로 변환
-//    private static Bitmap StringToBitmap(String encodedString) {
-//        byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-//        Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-//        return bitmap;
-//    }
 }

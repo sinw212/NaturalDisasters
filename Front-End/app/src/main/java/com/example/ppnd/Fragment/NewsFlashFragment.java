@@ -2,6 +2,7 @@ package com.example.ppnd.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ppnd.Adapter.LocationAdapter;
 import com.example.ppnd.Data.LocationData;
-import com.example.ppnd.Other.DataParsing;
 import com.example.ppnd.Other.LocationCode;
 import com.example.ppnd.R;
 import com.example.ppnd.SearchLocationActivity;
@@ -64,12 +64,10 @@ public class NewsFlashFragment extends Fragment {
 
         //MainActivity에서 전달한 번들 저장
         Bundle bundle = getArguments();
-        Log.d("진입9999", "ㅇㅇ");
         String newsflash_data = bundle.getString("nation_wide_newsflash"); //전국 속보 받아오기 (전국코드 : 108)
-        Log.d("진입1010", newsflash_data);
-        Bitmap satellite_data = bundle.getParcelable("satellite_image"); //위성사진 받아오기
+        byte[] bm = bundle.getByteArray("satellite_image"); //위성사진 받아오기
+        Bitmap satellite_data = BitmapFactory.decodeByteArray(bm,0,bm.length);
 
-        Log.d("진입전국속보", "ㅇㅇㅇㅇㅇ");
         String []split_data = newsflash_data.split("\n");
         int size = split_data.length;
         for(int i=0; i<size; i++) {
@@ -78,7 +76,6 @@ public class NewsFlashFragment extends Fragment {
             arrayList.add(nationwideData); //RecyclerView의 마지막 줄에 삽입
             nationwideAdapter.notifyDataSetChanged();
         }
-        Log.d("진입위성사진", "ㅇㅇ");
         photoView_satellite.setImageBitmap(satellite_data); //이미지뷰에 위성사진 띄우기
 
         /*
