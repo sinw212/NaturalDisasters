@@ -1,5 +1,6 @@
 package com.example.ppnd.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.example.ppnd.R;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
+    private Context mContext;
     private RecyclerView recyclerview = null;
     private LinearLayoutManager layoutManager = null;
     private LocationAdapter currentlocationAdapter;
@@ -59,7 +61,7 @@ public class HomeFragment extends Fragment {
 
         arrayList = new ArrayList<>();
 
-        currentlocationAdapter = new LocationAdapter(arrayList);
+        currentlocationAdapter = new LocationAdapter(mContext, arrayList);
         recyclerview.setAdapter(currentlocationAdapter);
 
         //지진 버튼

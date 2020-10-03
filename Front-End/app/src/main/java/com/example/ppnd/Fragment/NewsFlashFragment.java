@@ -1,5 +1,6 @@
 package com.example.ppnd.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,7 +28,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import java.util.ArrayList;
 
 public class NewsFlashFragment extends Fragment {
-
+    private Context mContext;
     private RecyclerView recyclerview = null;
     private LinearLayoutManager layoutManager;
     private LocationAdapter nationwideAdapter = null;
@@ -59,7 +60,7 @@ public class NewsFlashFragment extends Fragment {
 
         arrayList = new ArrayList<>();
 
-        nationwideAdapter = new LocationAdapter(arrayList);
+        nationwideAdapter = new LocationAdapter(mContext, arrayList);
         recyclerview.setAdapter(nationwideAdapter);
 
         //MainActivity에서 전달한 번들 저장

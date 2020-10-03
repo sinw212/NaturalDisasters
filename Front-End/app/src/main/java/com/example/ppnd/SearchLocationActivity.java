@@ -1,5 +1,6 @@
 package com.example.ppnd;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import com.example.ppnd.Other.DataParsing;
 import java.util.ArrayList;
 
 public class SearchLocationActivity extends AppCompatActivity {
-
+    private Context mContext;
     private RecyclerView recyclerview = null;
     private LinearLayoutManager layoutManager = null;
     private LocationAdapter searchlocationAdapter;
@@ -40,7 +41,7 @@ public class SearchLocationActivity extends AppCompatActivity {
 
         arrayList = new ArrayList<>();
 
-        searchlocationAdapter = new LocationAdapter(arrayList);
+        searchlocationAdapter = new LocationAdapter(mContext, arrayList);
         recyclerview.setAdapter(searchlocationAdapter);
 
         //NewsFlashFragment 에서 넘긴 값 받아오기
