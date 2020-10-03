@@ -63,8 +63,12 @@ public class SearchLocationActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String split_data[] = data.split("\n");
-                        for(int i=0; i<split_data.length; i++) {
+                        String []split_data = data.split("\n");
+                        int size = split_data.length;
+                        for(int i=0; i<size; i++) {
+                            if(split_data[i].substring(0,1).equals("("))
+                                split_data[i] = split_data[i].substring(3,split_data[i].length());
+
                             searchlocationData = new LocationData(split_data[i]);
 
                             arrayList.add(searchlocationData); // RecyclerView의 마지막 줄에 삽입

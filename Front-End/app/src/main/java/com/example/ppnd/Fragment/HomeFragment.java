@@ -147,39 +147,16 @@ public class HomeFragment extends Fragment {
 
         String[] split_data = data.split("\n");
         int size = split_data.length;
-        for (int i = 0; i < size; i++) {
+
+        for(int i = 0; i < size; i++) {
+            if(split_data[i].substring(0,1).equals("("))
+                split_data[i] = split_data[i].substring(3,split_data[i].length());
+
             currentlocationData = new LocationData(split_data[i]);
 
             arrayList.add(currentlocationData); // RecyclerView의 마지막 줄에 삽입
             currentlocationAdapter.notifyDataSetChanged();
         }
-
-        /*
-        //XML 파싱해서 Adapter에 연결하는 과정
-        //Android 4.0 이상 부터는 네트워크를 이용할 때 반드시 Thread 사용해야 함
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //GPS기준 현재 위치 속보 받아오기
-                data = DataParsing.newsflashXmlData(current_code); //아래 메소드를 호출하여 XML data를 파싱해서 String 객체로 얻어오기
-
-                //UI Thread(Main Thread)를 제외한 어떤 Thread도 화면을 변경할 수 없기때문에
-                //runOnUiThread()를 이용하여 UI Thread가 TextView 글씨 변경하도록 함
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String split_data[] = data.split("\n");
-                        for(int i=0; i<split_data.length; i++) {
-                            currentlocationData = new LocationData(split_data[i]);
-
-                            arrayList.add(currentlocationData); // RecyclerView의 마지막 줄에 삽입
-                            currentlocationAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-            }
-        }).start();
-        */
     }
 
     private void initView() {
