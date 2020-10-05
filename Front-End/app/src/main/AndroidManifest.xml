@@ -29,10 +29,6 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:exported="false"/>
-        <activity
             android:name=".NavigationBarMainActivity"
             android:exported="false"/>
         <activity
@@ -47,10 +43,15 @@
         <activity
             android:name=".ShelterActivity"
             android:exported="false"/>
+        <activity
+            android:name=".VolunteerActivity"
+            android:exported="false"/>
+
+        <service android:name="GPSService"></service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value=""
+            android:value="AIzaSyAOGK4pL7Qel8GRnDO_xwHK2v3gM8t94WY"
             />
 
 

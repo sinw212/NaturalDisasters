@@ -1,5 +1,8 @@
 package com.example.ppnd.Other;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,6 +14,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -18,24 +22,25 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HeatWaveParsing extends AsyncTask<String, Void, String> {
     String serviceKey_Decoder="";
     StringBuilder urlBuilder;
-    ArrayList<HeatWaveShelterData> address = new ArrayList();
+    private static ArrayList<HeatWaveShelterData> address = new ArrayList();
+    String serviceKey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"; // 서비스 키
     ArrayList areaCode = new ArrayList<>();
     String[] equptype = {"001","002","003","004","005","006","007","008","009","010","099",};
-    int count =0 ;
+    Context mcontext;
 
-    public HeatWaveParsing(ArrayList areaCode){
+    public HeatWaveParsing(ArrayList areaCode, Context context){
+        this.mcontext = context;
         this.areaCode = areaCode;
     }
 
     @Override
     protected String doInBackground(String... strings) {
         Log.d("파싱2","실행");
-
-        final String serviceKey = ""; // 서비스 키
 
         try {
             serviceKey_Decoder = URLDecoder.decode(serviceKey.toString(), "UTF-8");
@@ -46,7 +51,6 @@ public class HeatWaveParsing extends AsyncTask<String, Void, String> {
 
         int size = areaCode.size();
         for(int i =0; i <size;i++) {
-            count = i;
             for(int j =0; j <equptype.length; j++) {
                 urlBuilder = new StringBuilder("http://apis.data.go.kr/1750000/heatwaveShelterService/RegionalShelterTypeCrntSt"); /*URL*/
                 try {
@@ -110,7 +114,7 @@ public class HeatWaveParsing extends AsyncTask<String, Void, String> {
                                 if (restname) {
                                     temp_restname = parser.getText();
                                     Log.d("temp_restname", temp_restname);
-                                    address.add(new HeatWaveShelterData(temp_restaddr,temp_restname));
+                                    address.add(new HeatWaveShelterData(mcontext,temp_restaddr,temp_restname));
                                     restname = false;
                                 }
                                 break;
@@ -137,12 +141,8 @@ public class HeatWaveParsing extends AsyncTask<String, Void, String> {
         return null;
     }
 
-    public int getCount(){
-        return count;
-    }
 
-
-    public ArrayList getArrayList(){
+    public static ArrayList<HeatWaveShelterData> getArrayList(){
         return address;
     }
 

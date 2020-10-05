@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="52dp"
+    android:paddingBottom="5dp"
+    android:background="#FFFFFF">
+
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingRight="10dp"
+                    >
+                    <TextView
+                        android:fontFamily="@font/fontjalnan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:text="흔들림이 멈추거나 대피후에는"
+                        android:textColor="#ED7D31"
+                        android:textSize="22sp"
+                        />
+
+                    <TextView
+                        android:fontFamily="@font/fontjalnan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="이렇게 행동합니다."
+                        android:textColor="#000000"
+                        android:textSize="22sp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background1"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="부상자를 살펴보고\n즉시 구조 요청을 합니다"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="흔들림이 멈추면 함께 있는 가족끼리 부상이 없는지 집에 위험이 없는지 확인합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="부상자가 있으면 이웃과 서로 협력하여 응급처치하고 소방서(119) 등 구조구급기관에 신고합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background1"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="주변의 피해 상황에 따라\n귀가 여부를 결정합니다"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="지진이 발생하면 라디오 및 주변에 있는 공공기관이 제공하는 정보에 따라 행동하며, 귀가여부를 판단합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background1"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="가정이나 사무실로 돌아간 후에는\n안전에 유의하여 주변을 확인합니다"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="가정이나 사무실의 피해 상황을 확인하고, 안전이 의심된다면 전문가의 확인을 받도록 합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="옷장이나 사무실 보관함 등의 내용물이 쏟아져 내려 부상을 입을 수도 있으므로 문을 열 때 주의합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background1"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="올바른 정보를 항상 확인합니다"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="근거없는 유언비어에 유의하고, TV‧라디오나 공공기관에서 제공하는 정보를 확인하여 지진 국민행동요령에 따릅니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

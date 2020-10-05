@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="52dp"
+    android:paddingBottom="5dp"
+    android:background="#FFFFFF">
+
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingRight="10dp"
+                    android:layout_weight="7"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fontjalnan"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:text="태풍 예보시,"
+                        android:textColor="#327CC0"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:fontFamily="@font/fontjalnan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="이렇게 행동 합니다."
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+
+                <ImageView
+                    android:layout_width="105dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_wind1"
+                    android:layout_weight="2"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background3"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="태풍의 진로 및 도달시간을\n파악합니다"
+                android:textColor="#000000"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="TV, 라디오, 인터넷, 스마트폰 등으로 기상상황을 미리 파악하여 어떻게 할지를 준비합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="스마트폰 애플리케이션을 통해 재난정보를 파악하여 주변 사람들과 공유합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background3"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="위험지역에서는\n안전한 곳으로 미리 대피합니다"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="산간·계곡, 하천, 방파제 등에서 야영이나 물놀이를 멈추고 주변에 있는 사람들에게 알려 함께 안전한 곳으로 대피합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="저지대나 상습 침수지역, 산사태 위험지역, 지하 공간이나 붕괴 우려가 있는 노후주택·건물 등에서는 주변에 있는 사람들에게 알려주고 안전한 곳으로 이동합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background3"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="주택이나 차량 등의 보호를 위해\n사전에 대비합니다"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="바람에 날아갈 위험이 있는 지붕, 간판 등은 미리 결박하고, 창문은 창틀에 단단하게 테이프 등으로 고정합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="하천이나 해변, 저지대에 주차된 차량은 안전한 곳으로 이동합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="가족과 함께 가정의 하수구나 집 주변의 배수구를 미리 점검하고 막힌 곳은 뚫습니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="침수가 예상되는 아파트 지하주차장, 건물 등은 모래주머니, 물막이 판 등을 이용하여 침수를 예방할 수 있도록 준비합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="시설하우스 등 농업 시설물은 버팀목이나 비닐 끈 등으로 단단히 묶고, 농경지는 배수로를 정비하여 피해를 예방합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="선박이나 어망·어구 등은 미리 결박하여 피해를 최소화하도록 합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="지역 주민과 함께 공사장, 축대, 옹벽 등을 미리 점검합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background3"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="가족과 함꼐 비상용품을\n준비하여 재난에 대비합니다"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="비상시 신속한 대피를 위해 응급용품은 미리 배낭 등에 넣어둡니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="상수도 공급이 중단될 수 있으므로 욕실 등에 미리 물을 받아둡니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="정전에 대비하여 비상용 랜턴, 양초, 배터리 등을 미리 준비해 둡니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="긴급 상황에 따른 정보 수신을 위해 스마트폰에 안전디딤돌 앱을 설치하고, 가까운 행정복지센터(주민센터) 등의 연락처를 확인합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background3"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="외출은 자제하고 노약자는\n수시로 안부를 확인합니다"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="약속된 일정은 취소하거나 조정하여 외출을 자제하고, 주변에 정보를 알려 줍니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point3"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="연세 많은 어르신, 어린이, 장애인 등은 외출을 하지 않도록 당부하고 수시로 전화 등을 통해 안부를 확인합니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

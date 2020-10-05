@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding ="5dp"
+    android:orientation="vertical"
+    android:background="#FFFCFC">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="자원봉사 게시판"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:fontFamily="@font/fontnanum"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:overScrollMode="never"
+        android:paddingTop="5dp" />
+
+</LinearLayout>

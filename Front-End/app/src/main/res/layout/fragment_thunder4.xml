@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="52dp"
+    android:paddingBottom="5dp"
+    android:background="#FFFFFF">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:fontFamily="@font/fontjalnan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:text="낙뢰는 어떻게 감전되나"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background5"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="직격뢰 (direct strike)"
+               android:textColor="#000000"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="뇌격전류가 직접 사람을 통해 대지로 흐르는 것으로, 심장마비, 호흡 정지, 신체훼손 등으로 대부분이 중상을 입거나 사망하게 됩니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background5"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="접촉뇌격 (contact strike)"
+                android:textColor="#000000"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="사람이 지닌 물체에 낙뢰가 떨어졌을 때, 전류는 물체로부터 사람을 거쳐 대지로 흐릅니다. (골프채, 등산 스틱, 우산 등)
+"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background5"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="측면 섬락 (side flash)"
+                android:textColor="#000000"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="낙뢰가 나무와 같은 물체에 떨어졌을 때 물체와 인근 사람 사이의 전위차가 공기의 절연을 파괴하여 발생하는 것으로, 사람이 뇌격전류가 대지로 흐르는 경로가 되어 전류가 심장 또는 머리를 통해 흐를 경우 사망하게 됩니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background5"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="보폭 전압 (step voltage)"
+                android:textColor="#000000"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="낙뢰로 뇌격전류가 대지에 흐를 때 근처에 있는 사람의 양발 사이에 걸리는 전압으로 일정 값을 넘게 되면 위험할 수 있습니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

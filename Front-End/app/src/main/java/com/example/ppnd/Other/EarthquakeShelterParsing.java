@@ -7,9 +7,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.ppnd.AppHelper;
 import com.example.ppnd.Data.EarthquakeShelterData;
 
 import org.json.JSONArray;
@@ -26,11 +25,11 @@ import java.util.Map;
 public class EarthquakeShelterParsing {
     StringBuilder urlBuilder;
     String serviceKey_Decoder;
-    String serviceKey = ""; // 서비스 키
+    String serviceKey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"; // 서비스 키
 
-    final ArrayList<EarthquakeShelterData> arrayList = new ArrayList<>();
+    final static ArrayList<EarthquakeShelterData> arrayList = new ArrayList<>();
 
-    int count = 0;
+    boolean flag = false;
 
     public EarthquakeShelterParsing(){
 
@@ -52,7 +51,6 @@ public class EarthquakeShelterParsing {
         }
 
         for(int i = 1; i<=5; i++) {
-            count = i;
             StringRequest stringRequest = new StringRequest(
                     Request.Method.GET, urlBuilder.toString() + "&pageNo=" + i,
                     new Response.Listener<String>() {
@@ -72,14 +70,25 @@ public class EarthquakeShelterParsing {
 
                                     String ctprvn_nm = earthquake_json.optString("ctprvn_nm");
                                     String sgg_nm = earthquake_json.optString("sgg_nm");
-                                    String vt_acmdfclty_nm = earthquake_json.optString("vt_acmdfclty_nm");
+                                    //Log.d("지역",ctprvn_nm+" "+sgg_nm);
+                                    if(ctprvn_nm.equals("강원도")){
+                                        if(sgg_nm.substring(0,3).equals("원주시")){
+                                            String vt_acmdfclty_nm = earthquake_json.optString("vt_acmdfclty_nm");
+                                            Double xcord = earthquake_json.optDouble("xcord");
+                                            Double ycord = earthquake_json.optDouble("ycord");
 
-                                    Double xcord = earthquake_json.optDouble("xcord");
-                                    Double ycord = earthquake_json.optDouble("ycord");
-
-                                    arrayList.add(new EarthquakeShelterData(vt_acmdfclty_nm, ycord, xcord));
-
-
+                                            arrayList.add(new EarthquakeShelterData(vt_acmdfclty_nm, ycord, xcord));
+                                            flag = true;
+                                        }
+                                        else{
+                                            if(flag)
+                                                break;
+                                        }
+                                    }
+                                    else {
+                                        if (flag)
+                                            break;
+                                    }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -129,7 +138,7 @@ public class EarthquakeShelterParsing {
         }
     }
 
-    public ArrayList getArrayList(){
+    public static ArrayList<EarthquakeShelterData> getArrayList(){
         return arrayList;
     }
 }

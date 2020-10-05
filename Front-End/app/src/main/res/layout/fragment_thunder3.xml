@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="52dp"
+    android:paddingBottom="5dp"
+    android:background="#FFFFFF">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingRight="10dp"
+                    android:layout_weight="7"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fontjalnan"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:text="낙뢰에 맞았을 때,"
+                        android:textColor="#4F327A"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:fontFamily="@font/fontjalnan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="이렇게 행동 합니다."
+                        android:textColor="#000000"
+                        android:textSize="24sp"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="69dp"
+                    android:layout_height="63dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:src="@drawable/icon_thunder3" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background5"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="낙뢰에 맞은 때"
+                android:textColor="#000000"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="낙뢰로부터 안전한 장소로 주변인들과 함께 피해자를 옮기고 의식 여부를 살핍니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="의식이 없으면 즉시 호흡과 맥박의 여부를 확인하고 호흡이 멎어 있을 때에는 인공호흡을, 맥박도 멎어 있으면 인공호흡과 함께 심장 마사지를 합니다. 또한 119 또는 인근 병원에 긴급 연락하고, 구조요원이 올 때까지 주변인들과 함께 피해자를 응급조치 하고 피해자의 체온을 유지시킵니다. "
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="피해자가 맥박이 뛰고 숨을 쉬고 있다면, 주변인들과 함께 피해자의 다른 상처를 가능한 빨리 찾습니다. 몸에서 낙뢰가 들어가고 빠져 나온 부위의 화상을 체크하며, 신경계 피해, 골절, 청각과 시각의 손상을 체크합니다. "
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="의식이 있는 경우에는 주변인들과 함께 피해자 자신이 가장 편한 자세로 안정케 합니다. 감전 후 대부분 환자가 전신 피로감을 호소하기 마련입니다. 환자가 흥분하거나 떠는 경우에는 말을 거는 등의 방법으로 환자가 침착해지도록 합니다. "
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="등산 등 즉시 의사의 치료를 받을 수 없는 장소에서 사고가 일어나더라도 절대로 단념하지 말고 필요하다면 인공호흡, 심장 마사지, 지혈 등의 처치를 계속 합니다. "
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point5"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="환자의 의식이 분명하고 건강해 보여도, 감전은 몸의 안쪽 깊숙이까지 화상을 입히는 경우가 있으므로 빨리 병원에서 응급 진찰을 받을 필요가 있습니다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

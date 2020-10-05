@@ -23,4 +23,6 @@ public class EarthquakeShelterData implements Serializable {
     public Double getLng(){
         return lng;
     }
+
+
 }

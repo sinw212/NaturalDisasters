@@ -1,45 +1,29 @@
 package com.example.ppnd;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.ppnd.Data.EarthquakeShelterData;
-import com.example.ppnd.Data.HeatWaveShelterData;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.example.ppnd.Other.EarthquakeShelterTask;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class HomeFragment extends Fragment {
+
+
     Button btn_earthquake, btn_typoon, btn_thunder, btn_heatwave, btn_rain, btn_snow;
+    private ArrayList<Parcelable> list1;
 
     @Nullable
     @Override
@@ -51,10 +35,15 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        Intent intent = getActivity().getIntent();
-        final ArrayList<EarthquakeShelterData> list1 = (ArrayList<EarthquakeShelterData>) intent.getSerializableExtra("earthquakeshelter");
-        final ArrayList<HeatWaveShelterData> list2 = (ArrayList<HeatWaveShelterData>) intent.getSerializableExtra("heatwaveshelter");
+        
+        try {
+            Bundle bundle = getArguments();
+            if(bundle != null) {
+                list1 = bundle.getParcelableArrayList("list1");
+            }
+        } catch(Exception e) {
+            Log.d("오류",String.valueOf(e));
+        }
 
 
         btn_earthquake = (Button) getView().findViewById(R.id.btn_earthquake);
@@ -110,7 +99,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), NaturalDisasters2Activity.class);
                 intent.putExtra("type", "heatwave");
-                intent.putExtra("heatwaveshelter", list2);
                 startActivity(intent);
             }
         });
