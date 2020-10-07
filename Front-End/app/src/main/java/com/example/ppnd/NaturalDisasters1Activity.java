@@ -26,7 +26,7 @@ public class NaturalDisasters1Activity extends AppCompatActivity {
         data = intent.getExtras().getString("data");
 
         linearlayout_background = findViewById(R.id.linearlayout_background);
-        btn_behavior = findViewById(R.id.btn_action);
+        btn_behavior = findViewById(R.id.btn_behavior);
         text_title = findViewById(R.id.text_title);
         text_content = findViewById(R.id.text_content);
 
@@ -40,6 +40,7 @@ public class NaturalDisasters1Activity extends AppCompatActivity {
             linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.typhoon_background));
             text_title.setText("태풍");
             text_content.setText(data);
+            type = "typhoon";
         }
         else if(type.equals("thunder")) {
             linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.thunder_background));
@@ -51,6 +52,7 @@ public class NaturalDisasters1Activity extends AppCompatActivity {
             linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.thunder_background));
             text_title.setText("낙뢰");
             text_content.setText(data);
+            type = "thunder";
         }
         else if(type.equals("rain")) {
             linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.rain_background));
@@ -62,6 +64,7 @@ public class NaturalDisasters1Activity extends AppCompatActivity {
             linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.rain_background));
             text_title.setText("호우");
             text_content.setText(data);
+            type = "rain";
         }
         else if(type.equals("snow")) {
             linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.snow_background));
@@ -73,12 +76,16 @@ public class NaturalDisasters1Activity extends AppCompatActivity {
             linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.snow_background));
             text_title.setText("폭설");
             text_content.setText(data);
+            type = "snow";
         }
 
         btn_behavior.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //행동요령
+                Intent intent = new Intent(getApplicationContext(), ActionActivity.class);
+                intent.putExtra("type",type);
+                startActivity(intent);
             }
         });
     }

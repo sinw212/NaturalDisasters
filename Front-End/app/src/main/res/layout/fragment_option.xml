@@ -9,10 +9,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="도움말"
         android:textSize="30sp"
         android:textColor="#000000"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:fontFamily="@font/nanum"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -20,7 +22,8 @@
         android:layout_marginTop="10dp"
         android:text=" 본 서비스는 자연재해로 인해 발생하는 안전 문제들에 대비하여, 대한민국 국민의 안전을 책임지는 서비스 입니다."
         android:textSize="20sp"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/nanum"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +37,8 @@
             android:text="알림 수신 여부"
             android:textSize="30sp"
             android:textColor="#000000"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:fontFamily="@font/nanum"/>
 
         <CheckBox
             android:id="@+id/notiCheck"
@@ -42,7 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="알림"
-            android:textSize="17sp"/>
+            android:textSize="17sp"
+            android:fontFamily="@font/nanum"/>
 
         <CheckBox
             android:id="@+id/msgCheck"
@@ -50,7 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="문자"
-            android:textSize="17sp"/>
+            android:textSize="17sp"
+            android:fontFamily="@font/nanum"/>
     </LinearLayout>
 
 </LinearLayout>

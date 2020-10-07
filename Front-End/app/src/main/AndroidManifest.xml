@@ -45,13 +45,32 @@
             android:exported="false"/>
         <activity
             android:name=".SearchLocationActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:exported="false"/>
         <activity
             android:name=".NaturalDisasters1Activity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:exported="false"/>
         <activity
             android:name=".NaturalDisasters2Activity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:exported="false"/>
+        <activity
+            android:name=".ActionActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false"/>
+        <activity
+            android:name=".ShelterActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false"/>
+        <activity
+            android:name=".VolunteerActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAOGK4pL7Qel8GRnDO_xwHK2v3gM8t94WY" />
     </application>
 
 </manifest>

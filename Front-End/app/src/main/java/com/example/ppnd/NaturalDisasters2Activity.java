@@ -26,7 +26,7 @@ public class NaturalDisasters2Activity extends AppCompatActivity {
         data = intent.getExtras().getString("data");
 
         linearlayout_background = findViewById(R.id.linearlayout_background);
-        btn_behavior = findViewById(R.id.btn_action);
+        btn_behavior = findViewById(R.id.btn_behavior);
         btn_shelter = findViewById(R.id.btn_shelter);
         text_title = findViewById(R.id.text_title);
         text_content = findViewById(R.id.text_content);
@@ -41,6 +41,7 @@ public class NaturalDisasters2Activity extends AppCompatActivity {
             linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.earthquake_background));
             text_title.setText("지진");
             text_content.setText(data);
+            type = "earthquake";
         }
         else if(type.equals("heatwave")){
             linearlayout_background.setBackground(ContextCompat.getDrawable(this, R.drawable.heatwave_background));
@@ -52,12 +53,16 @@ public class NaturalDisasters2Activity extends AppCompatActivity {
             linearlayout_background.setBackground(ContextCompat.getDrawable(this,R.drawable.heatwave_background));
             text_title.setText("폭염");
             text_content.setText(data);
+            type = "heatwave";
         }
 
         btn_behavior.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //행동요령
+                Intent intent = new Intent(getApplicationContext(), ActionActivity.class);
+                intent.putExtra("type",type);
+                startActivity(intent);
             }
         });
 
@@ -65,6 +70,9 @@ public class NaturalDisasters2Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //대피소
+                Intent intent = new Intent(getApplicationContext(), ShelterActivity.class);
+                intent.putExtra("type",type);
+                startActivity(intent);
             }
         });
     }

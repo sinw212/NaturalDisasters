@@ -24,6 +24,7 @@ import com.example.ppnd.NaturalDisasters2Activity;
 import com.example.ppnd.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
     private Context mContext;
@@ -134,9 +135,9 @@ public class HomeFragment extends Fragment {
         btn_emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Call = new Intent(Intent.ACTION_CALL);
-                Call.setData(Uri.parse("tel:010-9173-8332"));
-                startActivity(Call);
+//                Intent Call = new Intent(Intent.ACTION_CALL);
+//                Call.setData(Uri.parse("tel:010-9173-8332"));
+//                startActivity(Call);
             }
         });
 
@@ -148,13 +149,28 @@ public class HomeFragment extends Fragment {
         current_location.setText(current_address + " 속보");
 
         String[] split_data = data.split("\n");
+        ArrayList<String> ssplit_data = new ArrayList<>();
         int size = split_data.length;
 
-        for(int i = 0; i < size; i++) {
-            if(split_data[i].substring(0,1).equals("("))
-                split_data[i] = split_data[i].substring(3,split_data[i].length());
+        for(int i=0; i<size; i++) {
+            if(split_data[i].equals("현재 속보가 존재하지 않습니다.") ||
+                    split_data[i].equals("오류가 발생했습니다. 다시 시도해주세요."))
+                ssplit_data.add(split_data[i]);
+            else {
+                if(split_data[i].substring(0,1).equals("(")) {
+                    split_data[i] = split_data[i].substring(3, split_data[i].length());
+                    ssplit_data.add(split_data[i] + "\n");
+                }
+                else
+                    ssplit_data.set(ssplit_data.size()-1,ssplit_data.get(ssplit_data.size()-1)+split_data[i]+"\n");
+            }
+        }
 
-            currentlocationData = new LocationData(split_data[i]);
+        int ssize = ssplit_data.size();
+        for(int i = 0; i < ssize; i++) {
+            Log.d("진입1", ssplit_data.get(i));
+
+            currentlocationData = new LocationData(ssplit_data.get(i));
 
             arrayList.add(currentlocationData); // RecyclerView의 마지막 줄에 삽입
             currentlocationAdapter.notifyDataSetChanged();

@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -18,8 +17,6 @@ import com.example.ppnd.Fragment.NewsFlashFragment;
 import com.example.ppnd.Fragment.OptionFragment;
 import com.example.ppnd.Fragment.VolunteerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import static android.app.ActionBar.DISPLAY_SHOW_CUSTOM;
 
 public class MainActivity extends AppCompatActivity {
     private long backKeyClickTime = 0;
@@ -34,16 +31,7 @@ public class MainActivity extends AppCompatActivity {
    @SuppressLint("WrongConstant")
    @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        //ActionBar 커스텀
-//        try {
-//            getSupportActionBar().setDisplayOptions(DISPLAY_SHOW_CUSTOM);
-//            getSupportActionBar().setCustomView(R.layout.custom_actionbar);
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
-
+       super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_main);
 
         //SplashActivity의 인텐트를 받아서 text값을 저장

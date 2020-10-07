@@ -53,6 +53,9 @@ public class LocationCode {
             else if(Address.contains("제주도"))
                 current_address = "제주도";
         }
+        else {
+            current_address = "null";
+        }
         return current_address;
     }
 

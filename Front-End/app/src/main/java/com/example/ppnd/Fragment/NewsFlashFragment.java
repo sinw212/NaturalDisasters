@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,15 +70,32 @@ public class NewsFlashFragment extends Fragment {
         byte[] bm = bundle.getByteArray("satellite_image"); //위성사진 받아오기
         Bitmap satellite_data = BitmapFactory.decodeByteArray(bm,0,bm.length);
 
-        String []split_data = newsflash_data.split("\n");
+
+        String[] split_data = newsflash_data.split("\n");
+        ArrayList<String> ssplit_data = new ArrayList<>();
         int size = split_data.length;
+
         for(int i=0; i<size; i++) {
-            if(split_data[i].substring(0,1).equals("("))
-                split_data[i] = split_data[i].substring(3,split_data[i].length());
+            if(split_data[i].equals("현재 속보가 존재하지 않습니다.") ||
+                    split_data[i].equals("오류가 발생했습니다. 다시 시도해주세요."))
+                ssplit_data.add(split_data[i]);
+            else {
+                if(split_data[i].substring(0,1).equals("(")) {
+                    split_data[i] = split_data[i].substring(3, split_data[i].length());
+                    ssplit_data.add(split_data[i] + "\n");
+                }
+                else
+                    ssplit_data.set(ssplit_data.size()-1,ssplit_data.get(ssplit_data.size()-1)+split_data[i]+"\n");
+            }
+        }
 
-            nationwideData = new LocationData(split_data[i]);
+        int ssize = ssplit_data.size();
+        for(int i = 0; i < ssize; i++) {
+            Log.d("진입1", ssplit_data.get(i));
 
-            arrayList.add(nationwideData); //RecyclerView의 마지막 줄에 삽입
+            nationwideData = new LocationData(ssplit_data.get(i));
+
+            arrayList.add(nationwideData); // RecyclerView의 마지막 줄에 삽입
             nationwideAdapter.notifyDataSetChanged();
         }
         photoView_satellite.setImageBitmap(satellite_data); //이미지뷰에 위성사진 띄우기
@@ -89,10 +107,14 @@ public class NewsFlashFragment extends Fragment {
                 current_address = LocationCode.currentAddress(String.valueOf(et_search.getText()));
                 current_code = LocationCode.currentLocationCode(current_address);
 
-                Intent intent = new Intent(getActivity(), SearchLocationActivity.class);
-                intent.putExtra("current_address", current_address);
-                intent.putExtra("current_code", current_code);
-                startActivity(intent);
+                if(current_address.equals("null")) {
+                    Toast.makeText(getContext(), "잘못 입력하였습니다. 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(getActivity(), SearchLocationActivity.class);
+                    intent.putExtra("current_address", current_address);
+                    intent.putExtra("current_code", current_code);
+                    startActivity(intent);
+                }
             }
         });
     }

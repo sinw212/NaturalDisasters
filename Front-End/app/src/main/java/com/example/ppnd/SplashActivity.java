@@ -24,12 +24,18 @@ import android.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.ppnd.Other.DataParsing;
+import com.example.ppnd.Other.EarthquakeShelterParsing;
+import com.example.ppnd.Other.HeatWaveParsing;
+import com.example.ppnd.Other.NewsFlashParsing;
 import com.example.ppnd.Other.GPSService;
 import com.example.ppnd.Other.LocationCode;
+import com.opencsv.CSVReader;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,11 +53,17 @@ public class SplashActivity extends Activity {
 
     public String current_location_newsflash, nation_wide_newsflash;
     private byte[] satellite_image;
-    private DataParsing dataParsing = new DataParsing();
+    private NewsFlashParsing newsFlashParsing = new NewsFlashParsing();
 
     private String full_address, current_address;
     private int current_code;
+    private String[] arr_area;
+    private String Local1, Local2,Local3;
+    private int count=3;
     private GPSService gpsService;
+
+    private EarthquakeShelterParsing eqtask;
+    private HeatWaveParsing hwtask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,11 +82,102 @@ public class SplashActivity extends Activity {
         Log.d("진입경도", String.valueOf(longitude));
 
         full_address = getCurrentAddress(latitude, longitude); //전체 주소
-
+        Log.d("진입full_address", full_address);
         current_address = LocationCode.currentAddress(full_address);
         Log.d("진입current_address", current_address);
         current_code = LocationCode.currentLocationCode(current_address);
         Log.d("진입current_code", String.valueOf(current_code));
+
+        Log.d("현위치 주소",full_address);
+        arr_area = full_address.split(" ");
+        Local1 = arr_area[1]; //OO도
+        Local2 = arr_area[2]; //OO시
+
+        // 지진 대피소 파싱 시작
+        try {
+            eqtask = new EarthquakeShelterParsing(Local1,Local2);
+            eqtask.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        // 창원시 ~ 전주시는 ㅇㅇ시ㅇㅇ구로 표현되기 때문에 따로 검사
+        String city[] = {"창원시","수원시","성남시","안양시","안산시","고양시","용인시","청주시","천안시","전주시"};
+        int size = city.length;
+        for(int i =0; i<size; i++){
+            if(Local2.equals(city[i])){
+                Local2 += arr_area[3];
+                count++;
+            }
+        }
+
+        Local3 = arr_area[count];
+
+        // 지역코드 csv 파일에서 받아오기
+        ArrayList list = new ArrayList<>();
+        boolean flag1 = false;
+
+        while(true) {
+            try {
+                InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.areacode));
+                BufferedReader reader = new BufferedReader(is);
+                CSVReader read = new CSVReader(reader);
+                String record = null;
+                boolean flag = false;
+                while ((record = reader.readLine()) != null) {
+                    String arr[] = record.split("/");
+
+                    if (flag) {
+                        if (arr.length < 4)
+                            break;
+                        else {
+                            if (!arr[2].equals(Local2))
+                                break;
+                        }
+                    }
+                    if (arr.length == 4) {
+                        if (arr[1].equals(Local1)) {
+                            if (arr[2].equals(Local2)) {
+                                {
+                                    list.add(arr[0]);
+                                   /* if (arr[3].contains(Local3)) {
+                                        list.add(arr[0]);
+                                        flag = true;
+                                    }*/
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if(list.size() >0)
+                break;
+            /*else{
+                if(flag1){
+                    break;
+                }
+                else{
+                    String dong[] = arr_area[count].split("동");
+                    Local3 = dong[0];
+                    flag1 = true;
+                }
+            }*/
+        }
+
+        // 무더위 쉼터 파싱 시작
+        try {
+            hwtask = new HeatWaveParsing(list,this);
+            hwtask.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Toast.makeText(SplashActivity.this, full_address, Toast.LENGTH_SHORT).show();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_DENIED ||
@@ -82,9 +185,9 @@ public class SplashActivity extends Activity {
                         ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_DENIED)) {
 
             Log.d("진입1", "ㅇㅇ");
-            PrograssTask task = new PrograssTask();
+            NewsflashTask nftask = new NewsflashTask();
             Log.d("진입2", "ㅇㅇ");
-            task.execute();
+            nftask.execute();
         }
         else{
             Log.d("진입MainActivity로 넘어가", "ㅇㅇ");
@@ -93,7 +196,8 @@ public class SplashActivity extends Activity {
         }
     }
 
-    public class PrograssTask extends AsyncTask<Void, Void, Void> {
+    //속보&위성사진 파싱
+    public class NewsflashTask extends AsyncTask<Void, Void, Void> {
         ProgressDialog progressDialog = new ProgressDialog(SplashActivity.this);
         //가장 먼저 호출
         @Override
@@ -115,17 +219,17 @@ public class SplashActivity extends Activity {
                 for (int i = 1; i < 4; i++) {
                     switch (i * 10) {
                         case 10:
-                            current_location_newsflash = dataParsing.newsflashXmlData(current_code);
+                            current_location_newsflash = newsFlashParsing.newsflashXmlData(current_code);
                             Log.d("진입5", String.valueOf(current_code));
                             checkSecurity += 1;
                             break;
                         case 20:
-                            nation_wide_newsflash = dataParsing.newsflashXmlData(108);
+                            nation_wide_newsflash = newsFlashParsing.newsflashXmlData(108);
                             Log.d("진입6", "ㅇㅇ");
                             checkSecurity += 1;
                             break;
                         case 30:
-                            Bitmap bm = dataParsing.satelliteXmlData();
+                            Bitmap bm = newsFlashParsing.satelliteXmlData();
                             //100K 이상 데이터를 Intent를 통해 put할 경우 에러 발생 -> 크기 줄여줘야함
                             //원인 : android os에서 intent에 100K 이상 넣을 수 없기 때문
                             ByteArrayOutputStream bos = new ByteArrayOutputStream();
