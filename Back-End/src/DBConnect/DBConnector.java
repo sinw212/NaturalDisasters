@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnector {
-	//  ½Ì±ÛÅæ ¹æ½Ä
+	
 	private static DBConnector instance = new DBConnector();
 	public static DBConnector getInstance() {
 		return instance;
 	}
 	
-	//  DB Á¢¼Ó º¯¼ö
+	//  DB ì ‘ì† ë³€ìˆ˜
 	private String dbURL = "jdbc:mysql://localhost:3307/PPND?serverTimezone=UTC";
 	private String dbID = "PPND";
 	private String dbPassword = "Security915!";

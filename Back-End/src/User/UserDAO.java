@@ -1,104 +1,110 @@
 package User;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import DBConnect.DBConnector;
 
 public class UserDAO {
-	// DB ¿¬°á º¯¼ö
+	//  DB ì—°ê²° ë³€ìˆ˜
 	private DBConnector dbConnector;
 	private Connection conn;
 	
-	//  SQL ÁúÀÇ °á°ú º¯¼ö
+	//  SQL ì§ˆì˜ ë³€ìˆ˜
+	private String sql = "";
+	private PreparedStatement pstmt;
 	private ResultSet rs;
+	
+	//  ê´€ë¦¬ì í™•ì¸ ë³€ìˆ˜
+	private Properties authority;
+	private FileInputStream fis_authority;
 	
 	public UserDAO() {
 		dbConnector = DBConnector.getInstance();
 	}
 	
-	private boolean checkID(String id) {    //  ¾ÆÀÌµğ Áßº¹È®ÀÎ
-		String sql = "select ID from USER_INFO where ID = ?";
+	private String getDate() {    //  ê°€ì… ì‹œê°„
+		sql = "select now()";
 		conn = dbConnector.getConnection();
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);    //  ¾ÆÀÌµğ
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return false;	//  ¾ÆÀÌµğ Áßº¹
-			} else {
-				return true;    //  ¾ÆÀÌµğ »ç¿ë°¡´É
+				return rs.getString(1);    //  DB ì‹œê°„ ë°˜í™˜
 			}
-		} catch (SQLException e) {    //  ¿¹¿ÜÃ³¸®
-			System.err.println("UserDAO checkID SQLExceptoin error");
-		} finally {    //  ÀÚ¿øÇØÁ¦
+		} catch (SQLException e) {    //  ì˜ˆì™¸ì²˜ë¦¬, ëŒ€ì‘ë¶€ì¬ ì œê±°
+			System.err.println("UserDAO getDate SQLExceptoin error");
+		} finally {    //  ìì› í•´ì œ
 			try {
 				if(conn != null) {conn.close();}
 				if(pstmt != null) {pstmt.close();}
 				if(rs != null) {rs.close();}
 			} catch(SQLException e) {
-				System.err.println("UserDAO checkID close SQLException error");
+				System.err.println("UserDAO getDate close SQLException error");
 			}
 		}
-		return false;    //  DB ¿À·ù
-	}
-
-	public String join(String id, String name, String phone, String password) {    //  È¸¿ø°¡ÀÔ
-		int result = 0;
-		if(checkID(id)) {
-			String sql = "insert into USER_INFO values(?, ?, ?, ?)";
-			conn = dbConnector.getConnection();
-			PreparedStatement pstmt = null;
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);    //  ¾ÆÀÌµğ
-				pstmt.setString(2, name);    //  ºñ¹Ğ¹øÈ£
-				pstmt.setString(3, phone);    //  ÀÌ¸§
-				pstmt.setString(4, password);    //  ÇÚµåÆù¹øÈ£
-				result = pstmt.executeUpdate();
-			} catch (SQLException e) {    //  ¿¹¿ÜÃ³¸®
-				System.err.println("UserDAO join SQLExceptoin error");
-				result =  -1;    //  DB ¿À·ù
-			} finally {    //  ÀÚ¿øÇØÁ¦
-				try {
-					if(conn != null) {conn.close();}
-					if(pstmt != null) {pstmt.close();}
-				} catch(SQLException e) {
-					System.err.println("UserDAO join close SQLException error");
-				}
-			}
-		}
-		if(result == 1) {
-			return "JoinSuccess";
-		} else if(result == 0) {
-			return "AlreadyID";
-		} else {
-			return "DBError";
-		}
+		return "";    //  DB ì˜¤ë¥˜
 	}
 	
-	public String login(String id, String password) {    //  ·Î±×ÀÎ
-		String sql = "select PASSWORD from USER_INFO where ID = ?";
+	private String expireDate() {    //  ì•„ì´ë”” ë§Œë£Œ ë‚ ì§œ
+		String date = getDate();
+		int year = Integer.parseInt(date.split("-")[0]);
+		year++;
+		return year + date.substring(4);
+	}
+	
+	public int add(UserDTO user) {    //  ìƒˆë¡œìš´ ì•„ì´ë”” ì¶”ê°€
+		sql = "insert into User (ID, Password, Name, PhoneNumber, Authority, Date, EndDate) values(?,?,?,?,?,?,?)";
 		conn = dbConnector.getConnection();
-		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);    //  ¾ÆÀÌµğ
+			pstmt.setString(1, user.getId());
+			pstmt.setString(2, user.getPassword());
+			pstmt.setString(3, user.getName());
+			pstmt.setString(4, user.getPhone());
+			pstmt.setString(5, user.getAuthority());
+			pstmt.setString(6, getDate());
+			pstmt.setString(7, expireDate());
+			return pstmt.executeUpdate();    //  ì•„ì´ë”” ì¶”ê°€ ì„±ê³µ
+		} catch(SQLException e) {    //  ì˜ˆì™¸ì²˜ë¦¬, ëŒ€ì‘ë¶€ì¬ ì œê±°
+			System.err.println("UserDAO join SQLException error");
+		} finally {    //  ìì› í•´ì œ
+			try {
+				if(conn != null) {conn.close();}
+				if(pstmt != null) {pstmt.close();}
+			} catch(SQLException e) {
+				System.err.println("UserDAO join close SQLException error");
+			}
+		}
+		return 0;    //  ì•„ì´ë””ì¶”ê°€ ì‹¤íŒ¨(ì•„ì´ë”” ì¤‘ë³µ, DB ì˜¤ë¥˜)
+	}
+	
+	public String login(String userID, String userPassword) {    //  ë¡œê·¸ì¸
+		sql = "select Password, Name, Authority from User where ID = ?";
+		conn = dbConnector.getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (userID));
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				if(rs.getString(1).equals(password)) {
-					return "LoginSuccess";    //  ·Î±×ÀÎ ¼º°ø
+				if(userPassword.equals(rs.getString(1))) {
+					return "success," + rs.getString(2) + "," + rs.getString(3);    //  ë¡œê·¸ì¸ ì„±ê³µ
 				} else {
-					return "LoginFail";    //  ºñ¹Ğ¹øÈ£ ¿À·ù
+					return "error,password";    //  ë¹„ë°€ë²ˆí˜¸ ì˜¤ë¥˜
 				}
 			}
-			return "NoID";    //  ¾ÆÀÌµğ ¾øÀ½
-		} catch (SQLException e) {    //  ¿¹¿ÜÃ³¸®
-			System.err.println("UserDAO login SQLExceptoin error");
-		} finally {    //  ÀÚ¿øÇØÁ¦
+			return "error,ID";    // ì•„ì´ë”” ì˜¤ë¥˜
+		} catch(SQLException e) {    //  ì˜ˆì™¸ì²˜ë¦¬, ëŒ€ì‘ë¶€ì¬ ì œê±°
+			System.err.println("UserDAO login SQLException error");
+		} finally {    //  ìì› í•´ì œ
 			try {
 				if(conn != null) {conn.close();}
 				if(pstmt != null) {pstmt.close();}
@@ -107,97 +113,31 @@ public class UserDAO {
 				System.err.println("UserDAO login close SQLException error");
 			}
 		}
-		return "DBError";    //  DB ¿À·ù
+		return "error,DB";    //  DB ì˜¤ë¥˜
 	}
 	
-	public String findPW(String id, String name, String phone) {    //  ÆĞ½º¿öµå Ã£±â
-		String sql = "select ID from USER_INFO where ID = ? and NAME = ? and PHONE = ?";
-		conn = dbConnector.getConnection();
-		PreparedStatement pstmt = null;
+	public boolean checkAuthority(String userAuthority) {    // ê¶Œí•œ í™•ì¸
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);    //  ¾ÆÀÌµğ
-			pstmt.setString(2, name);    //  ÀÌ¸§
-			pstmt.setString(3, phone);    //  ÇÚµåÆù¹øÈ£
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				return "FindPWSuccess";    //  ÇØ´ç¾ÆÀÌµğ È®ÀÎ ¼º°ø, ºñ¹Ğ¹øÈ£ º¯°æ °¡´É
+			authority = new Properties();
+			fis_authority = new FileInputStream("/volume1/Security/LabWebSite/authority.properties");
+			authority.load(new BufferedInputStream(fis_authority));
+			
+			if(userAuthority.equals(authority.getProperty("admin"))) {
+				return true;    //  ê´€ë¦¬ìì¼ ê²½ìš°
+			} else {
+				return false;    //  ê´€ë¦¬ìê°€ ì•„ë‹ ê²½ìš°
 			}
-			return "FindPWFail";    //  ÇØ´ç¾ÆÀÌµğ È®ÀÎ ½ÇÆĞ, ºñ¹Ğ¹øÈ£ º¯°æ ºÒ°¡
-		} catch (SQLException e) {    //  ¿¹¿ÜÃ³¸®
-			System.err.println("UserDAO findPW SQLExceptoin error");
-		} finally {    //  ÀÚ¿øÇØÁ¦
+		} catch (FileNotFoundException e) {    //  ì˜ˆì™¸ì²˜ë¦¬, ëŒ€ì‘ë¶€ì¬ ì œê±°
+			System.err.println("UserDAO checkAuthority FileNotFoundException error");
+		} catch (IOException e) {
+			System.err.println("UserDAO checkAuthority IOException error");
+		} finally {    //  ìì› í•´ì œ
 			try {
-				if(conn != null) {conn.close();}
-				if(pstmt != null) {pstmt.close();}
-				if(rs != null) {rs.close();}
-			} catch(SQLException e) {
-				System.err.println("UserDAO findPW close SQLException error");
+				if(fis_authority != null) {fis_authority.close();}
+			} catch (IOException e) {
+				System.err.println("UserDAO checkAuthority close IOException error");
 			}
 		}
-		return "DBError";    //  DB ¿À·ù
-	}
-	
-	public int newPW(String id, String newPassword, String phone) {    //  »õ·Î¿î ºñ¹Ğ¹øÈ£ º¯°æ(ºñ¹Ğ¹øÈ£ ÀÒ¾î¹ö·ÈÀ» ¶§)
-		String sql = "update USER_INFO set PASSWORD = ? where ID = ? and PHONE = ?";
-		conn = dbConnector.getConnection();
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, newPassword);    //  »õ·Î¿î ºñ¹Ğ¹øÈ£
-			pstmt.setString(2, id);    //  ¾ÆÀÌµğ
-			pstmt.setString(3, phone);    //  ÇÚµåÆù¹øÈ£
-			return pstmt.executeUpdate();    //  ºñ¹Ğ¹øÈ£ º¯°æ ¿Ï·á
-		} catch (SQLException e) {    //  ¿¹¿ÜÃ³¸®
-			System.err.println("UserDAO newPW SQLExceptoin error");
-		} finally {    //  ÀÚ¿øÇØÁ¦
-			try {
-				if(conn != null) {conn.close();}
-				if(pstmt != null) {pstmt.close();}
-			} catch(SQLException e) {
-				System.err.println("UserDAO newPW close SQLException error");
-			}
-		}
-		return -1;    //  DB ¿À·ù
-	}
-	
-	public String changePW(String id, String password, String newPassword) {    //  ÆĞ½º¿öµå ¹Ù²Ù±â(À¯Àú°¡ ºñ¹Ğ¹øÈ£ º¯°æÇÒ ¶§)
-		int result = 0;
-		if(!checkID(id)) {
-			String sql = "update USER_INFO set PASSWORD = ? where ID = ? and PASSWORD = ?";
-			conn = dbConnector.getConnection();
-			PreparedStatement pstmt = null;
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, newPassword);    //  ¹Ù²Ü ºñ¹Ğ¹øÈ£
-				pstmt.setString(2, id);    //  ¾ÆÀÌµğ
-				pstmt.setString(3, password);    //  ÀÌÀü ºñ¹Ğ¹øÈ£
-				result = pstmt.executeUpdate();    //  ºñ¹Ğ¹øÈ£ º¯°æ ¿Ï·á
-			} catch (SQLException e) {    //  ¿¹¿ÜÃ³¸®
-				System.err.println("UserDAO changePW SQLExceptoin error");
-				result = -1;    //  DB ¿À·ù
-			} finally {    //  ÀÚ¿øÇØÁ¦
-				try {
-					if(conn != null) {conn.close();}
-					if(pstmt != null) {pstmt.close();}
-				} catch(SQLException e) {
-					System.err.println("UserDAO changePW close SQLException error");
-				}
-			}
-			if(result != 1) {
-				result = -2;    //  ±âÁ¸ ºñ¹Ğ¹øÈ£°¡ Á¤È®ÇÏÁö ¾ÊÀ½
-			}
-		}
-		
-		if(result == 1) {
-			return "ChangeSuccess";
-		} else if(result == 0) {
-			return "NoID";
-		} else if(result == -2) {
-			return "NotPW";
-		} else {
-			return "DBError";
-		}
-		
+		return false;    //  ê´€ë¦¬ìê°€ ì•„ë‹ ê²½ìš°
 	}
 }
