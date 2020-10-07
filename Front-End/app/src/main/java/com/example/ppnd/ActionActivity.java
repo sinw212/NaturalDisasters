@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -23,7 +22,7 @@ public class ActionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_action);
+        setContentView(R.layout.activity_behavior);
         Intent intent = getIntent();
         type = intent.getExtras().getString("type");
 
@@ -46,7 +45,7 @@ public class ActionActivity extends AppCompatActivity {
             tabs.addTab(tabs.newTab().setText("평소 대비"));
             tabs.addTab(tabs.newTab().setText("지진 발생시"));
             tabs.addTab(tabs.newTab().setText("지진 발생 후"));
-        } else if (type.equals("typoon")) {
+        } else if (type.equals("typhoon")) {
             tabs.addTab(tabs.newTab().setText("태풍 예보 시"));
             tabs.addTab(tabs.newTab().setText("태풍 특보 중"));
             tabs.addTab(tabs.newTab().setText("태풍 이후"));

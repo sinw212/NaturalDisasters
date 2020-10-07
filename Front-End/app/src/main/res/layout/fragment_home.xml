@@ -1,43 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/current_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="검색 위치 속보"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:fontFamily="@font/nanum"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_current_location"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="10dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="자연재해 정보"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:fontFamily="@font/nanum"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_earthquake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/earthquake_icon"/>
+
+        <Button
+            android:id="@+id/btn_typhoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/typhoon_icon"/>
+
+        <Button
+            android:id="@+id/btn_thunder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/thunder_icon"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_heatwave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/heatwave_icon"/>
+
+        <Button
+            android:id="@+id/btn_rain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rain_icon"/>
+
+        <Button
+            android:id="@+id/btn_snow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/snow_icon"/>
+    </LinearLayout>
 
     <Button
-        android:id="@+id/btn_earthquake"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="지진"/>
-
-    <Button
-        android:id="@+id/btn_typoon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="태풍"/>
-    <Button
-        android:id="@+id/btn_thunder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="낙뢰"/>
-
-    <Button
-        android:id="@+id/btn_heatwave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="폭염"/>
-    <Button
-        android:id="@+id/btn_rain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="호우"/>
-
-    <Button
-        android:id="@+id/btn_snow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="폭설"/>
+        android:id="@+id/btn_emergency"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="right"
+        android:background="@drawable/emergency_icon"/>
 
 </LinearLayout>

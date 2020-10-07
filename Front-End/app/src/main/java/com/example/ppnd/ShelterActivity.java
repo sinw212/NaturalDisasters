@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -25,18 +23,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.StringRequest;
 import com.example.ppnd.Data.EarthquakeShelterData;
 import com.example.ppnd.Data.HeatWaveShelterData;
-import com.example.ppnd.Other.AppHelper;
 import com.example.ppnd.Other.EarthquakeShelterParsing;
-import com.example.ppnd.Other.EarthquakeShelterTask;
 import com.example.ppnd.Other.HeatWaveParsing;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -48,18 +37,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class ShelterActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
@@ -284,7 +262,7 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
     private void getData(String type){
 
         if(type.equals("earthquake")){
-            final ArrayList<EarthquakeShelterData> list = EarthquakeShelterTask.getArrayList();
+            final ArrayList<EarthquakeShelterData> list = EarthquakeShelterParsing.getArrayList();
             int size = list.size();
             Log.d("지진 대피소 크기",String.valueOf(size));
 

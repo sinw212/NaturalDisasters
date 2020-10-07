@@ -21,16 +21,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="10"
-                >
+                android:weightSum="10">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingRight="10dp"
-                    android:layout_weight="7"
-                    >
+                    android:layout_weight="7">
+
                     <TextView
                         android:fontFamily="@font/fontjalnan"
                         android:layout_width="wrap_content"
@@ -39,8 +38,8 @@
                         android:paddingLeft="10dp"
                         android:text="지진이 발생하면"
                         android:textColor="#ED7D31"
-                        android:textSize="24sp"
-                        />
+                        android:textSize="24sp" />
+
                     <TextView
                         android:fontFamily="@font/fontjalnan"
                         android:layout_width="wrap_content"
@@ -49,15 +48,13 @@
                         android:paddingBottom="10dp"
                         android:text="이렇게 대피 합니다."
                         android:textColor="#000000"
-                        android:textSize="24sp"
-                        />
+                        android:textSize="24sp" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="86dp"
@@ -65,7 +62,6 @@
                     android:layout_gravity="center"
                     android:src="@drawable/icon_exit"
                     android:layout_weight="2"/>
-
             </LinearLayout>
 
             <TextView
@@ -86,14 +82,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,14 +109,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,19 +130,20 @@
                     android:fontFamily="@font/nanum"
                     android:lineSpacingExtra ="3dp"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -179,14 +176,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -206,14 +203,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -233,14 +230,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -260,14 +257,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -300,14 +297,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -340,14 +337,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -367,14 +364,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -407,14 +404,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                >
+                android:paddingRight="10dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/point"
-                    android:paddingTop="20dp"
-                    />
+                    android:paddingTop="20dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -447,14 +444,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -474,14 +471,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -514,14 +511,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -541,14 +538,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -562,21 +559,20 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
-        <!-- 레이아웃 구분-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="10"
-            >
+            android:weightSum="10">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingRight="10dp"
-                android:layout_weight="7"
-                >
+                android:layout_weight="7">
+
                 <TextView
                     android:fontFamily="@font/fontjalnan"
                     android:layout_width="wrap_content"
@@ -585,8 +581,8 @@
                     android:paddingLeft="10dp"
                     android:text="장소에 따라"
                     android:textColor="#ED7D31"
-                    android:textSize="24sp"
-                    />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:fontFamily="@font/fontjalnan"
                     android:layout_width="wrap_content"
@@ -595,15 +591,13 @@
                     android:paddingBottom="10dp"
                     android:text="이렇게 행동 합니다."
                     android:textColor="#000000"
-                    android:textSize="24sp"
-                    />
+                    android:textSize="24sp" />
             </LinearLayout>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
 
             <ImageView
                 android:layout_width="86dp"
@@ -631,14 +625,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -658,14 +652,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -679,19 +673,20 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -724,14 +719,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -751,14 +746,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -778,14 +773,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -799,7 +794,7 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
-        <!-- 구분 -->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -818,14 +813,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -839,7 +834,7 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
-        <!-- 구분 -->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -858,14 +853,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -885,14 +880,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -906,7 +901,7 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
-        <!-- 구분-->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -925,14 +920,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -946,19 +941,20 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -972,19 +968,20 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -998,7 +995,7 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
-        <!--구분-->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -1017,14 +1014,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1044,14 +1041,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1065,7 +1062,7 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
-        <!-- 구분-->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -1084,14 +1081,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1105,19 +1102,20 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1137,14 +1135,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/point"
-                android:paddingTop="20dp"
-                />
+                android:paddingTop="20dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1158,7 +1156,7 @@
                 android:fontFamily="@font/nanum"
                 android:lineSpacingExtra ="3dp"/>
         </LinearLayout>
-            <!-- 구분-->
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

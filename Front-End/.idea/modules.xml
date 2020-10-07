@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PPND.iml" filepath="$PROJECT_DIR$/PPND.iml" group="PPND" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="PPND/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/poi-4.1.2/poi-4.1.2.iml" filepath="$PROJECT_DIR$/.idea/modules/poi-4.1.2/poi-4.1.2.iml" group="PPND/poi-4.1.2" />
     </modules>
   </component>
 </project>

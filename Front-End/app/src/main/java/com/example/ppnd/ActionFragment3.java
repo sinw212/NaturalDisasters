@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class ActionFragment3 extends Fragment {
 
@@ -42,8 +41,8 @@ public class ActionFragment3 extends Fragment {
         else if(type.equals("heatwave")){
             rootView = (ViewGroup) inflater.inflate(R.layout.fragment_heatwave3,container,false);
         }
-        else if(type.equals("typoon")){
-            rootView = (ViewGroup) inflater.inflate(R.layout.fragment_typoon3,container,false);
+        else if(type.equals("typhoon")){
+            rootView = (ViewGroup) inflater.inflate(R.layout.fragment_typhoon3,container,false);
         }
         else if (type.equals("thunder")) {
             rootView = (ViewGroup) inflater.inflate(R.layout.fragment_thunder3,container,false);
