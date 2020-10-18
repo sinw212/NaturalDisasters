@@ -6,6 +6,8 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.ppnd.Data.HeatWaveShelterData;
 import com.example.ppnd.R;
 import com.opencsv.CSVReader;
@@ -24,24 +26,16 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeatWaveParsing extends AsyncTask<String, Void, String> {
-    String serviceKey_Decoder="";
-    StringBuilder urlBuilder;
-    private static ArrayList<HeatWaveShelterData> address = new ArrayList();
-    String serviceKey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"; // 서비스 키
-    ArrayList areaCode = new ArrayList<>();
-    String[] equptype = {"001","002","003","004","005","006","007","008","009","010","099",};
-    Context mcontext;
+public class HeatWaveParsing extends AppCompatActivity {
 
-    public HeatWaveParsing(ArrayList areaCode, Context context){
-        this.mcontext = context;
-        this.areaCode = areaCode;
-    }
+    public static String serviceKey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D";
+    public static String serviceKey_Decoder="";
+    public static StringBuilder urlBuilder;
+    public static ArrayList<HeatWaveShelterData> address = new ArrayList();
+    public static String[] equptype = {"001","002","003","004","005","006","007","008","009","010","099",};
 
-    @Override
-    protected String doInBackground(String... strings) {
-        Log.d("파싱2","실행");
-
+    //무더위쉼터 위치 받아오기
+    public static String HeatWaveParsing(ArrayList areaCode, Context mcontext) {
         try {
             serviceKey_Decoder = URLDecoder.decode(serviceKey.toString(), "UTF-8");
             Log.v("서비스 키 ", serviceKey_Decoder);
@@ -50,6 +44,7 @@ public class HeatWaveParsing extends AsyncTask<String, Void, String> {
         }
 
         int size = areaCode.size();
+
         for(int i =0; i <size;i++) {
             for(int j =0; j <equptype.length; j++) {
                 urlBuilder = new StringBuilder("http://apis.data.go.kr/1750000/heatwaveShelterService/RegionalShelterTypeCrntSt"); /*URL*/
@@ -84,24 +79,20 @@ public class HeatWaveParsing extends AsyncTask<String, Void, String> {
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
                                 break;
-
                             case XmlPullParser.START_TAG: {
                                 if (parser.getName().equals("item")) {
                                     item = true;
                                     Log.d("findpath--------", "--------");
                                 }
-
                                 if (parser.getName().equals("restaddr")) {
                                     Log.d("restaddr", "--------");
                                     restaddr = true;
                                 }
-
                                 if (parser.getName().equals("restname")) {
                                     restname = true;
                                 }
                                 break;
                             }
-
                             case XmlPullParser.TEXT: {
                                 if (item) {
                                     item = false;
@@ -123,7 +114,6 @@ public class HeatWaveParsing extends AsyncTask<String, Void, String> {
                                 if (parser.getName().equals("item")) {
                                     break;
                                 }
-
                             case XmlPullParser.END_DOCUMENT:
                                 break;
                         }
@@ -135,16 +125,11 @@ public class HeatWaveParsing extends AsyncTask<String, Void, String> {
                     Log.e("HomeFra_transportapi_", "Error: " + e.getMessage());
                 }
             }
-
         }
-
         return null;
     }
-
 
     public static ArrayList<HeatWaveShelterData> getArrayList(){
         return address;
     }
-
-
 }

@@ -41,12 +41,10 @@ import java.util.ArrayList;
 
 
 public class ShelterActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
-
     String [] permission_list = {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
-
     LocationManager locationManager;
     GoogleMap map;
     String type;
@@ -54,6 +52,9 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
     View marker_root_view;
     TextView tv_marker;
 
+//    Intent intent = getIntent();
+//    ArrayList<EarthquakeShelterData> earthquake_shelter = (ArrayList<EarthquakeShelterData>) intent.getSerializableExtra("earthquake_shelter");
+//    ArrayList<HeatWaveShelterData> heatwave_shelter = (ArrayList<HeatWaveShelterData>) intent.getSerializableExtra("heatwave_shelter");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +73,7 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         else{
             init();
         }
-
-
     }
-
-
 
     // 구글 맵
     @Override
@@ -91,15 +88,12 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     public void init(){
-
         FragmentManager fragmentManager =getSupportFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment)fragmentManager.findFragmentById(R.id.map);
 
         MapRedatCallback callback1 = new MapRedatCallback();
         mapFragment.getMapAsync(callback1);
-
     }
-
 
     // 구글 지도 사용 준비가 완료되면 동작하는 콜백
     class MapRedatCallback implements OnMapReadyCallback {
@@ -111,7 +105,6 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         }
     }
 
-
     // 현재 위치를 측정하는 메서드
     public void getMyLocation(){
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -121,7 +114,6 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
                 return;
             }
         }
-
         // 이전에 측정했던 값을 가져온다.
         Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER); //GPS로 받기
         Location location2 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);  // 네트워크로 받기
@@ -144,15 +136,12 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == true){
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10f, listener);
         }
-
         getData(type);
-
     }
 
     public void setMyLocation(Location location){
         Log.d("test123","위도 : " +location.getLatitude());
         Log.d("test123","경도 : " + location.getLongitude());
-
 
         // 위도와 경도값을 관리하는 객체
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
@@ -163,16 +152,15 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         map.moveCamera(update1);
         map.animateCamera(update2);
 
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED ){
                 return;
             }
         }
-
         // 현재 위치 표시
         map.setMyLocationEnabled(true);
     }
+
     // 현재 위치 측정이 성공하면 반응하는 리스너
     class GetMyLocationListener implements LocationListener{
         @Override
@@ -180,25 +168,17 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
             setMyLocation(location);
             locationManager.removeUpdates(this);
         }
+        @Override
+        public void onProviderDisabled(String s) { }
 
         @Override
-        public void onProviderDisabled(String s) {
-
-        }
+        public void onProviderEnabled(String s) { }
 
         @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
+        public void onStatusChanged(String s, int i, Bundle bundle) { }
     }
 
     // 마커
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map.setOnMarkerClickListener(this);
@@ -220,7 +200,6 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
 
         return map.addMarker(markerOptions);
     }
-
 
     // View를 Bitmap으로 변환
     private Bitmap createDrawableFromView(Context context, View view) {
@@ -246,7 +225,6 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-
         CameraUpdate center = CameraUpdateFactory.newLatLng(marker.getPosition());
         map.animateCamera(center);
 
@@ -254,13 +232,9 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     @Override
-    public void onMapClick(LatLng latLng) {
-
-    }
-
+    public void onMapClick(LatLng latLng) { }
 
     private void getData(String type){
-
         if(type.equals("earthquake")){
             final ArrayList<EarthquakeShelterData> list = EarthquakeShelterParsing.getArrayList();
             int size = list.size();
@@ -280,5 +254,4 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
             }
         }
     }
-
 }

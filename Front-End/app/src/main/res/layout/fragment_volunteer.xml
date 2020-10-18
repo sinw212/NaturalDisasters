@@ -19,11 +19,17 @@
         android:paddingBottom="10dp"
         android:fontFamily="@font/fontnanum"/>
 
+    <View
+        android:layout_width="400dp"
+        android:layout_height="3px"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:background="#ECECEC" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="10dp"
         android:scrollbarThumbVertical="@android:color/darker_gray"

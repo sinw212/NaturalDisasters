@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingEnd="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -20,7 +21,7 @@
             android:textColor="#000000"
             android:paddingStart="20dp"
             android:paddingEnd="10dp"
-            android:paddingTop="10dp"
+            android:paddingTop="20dp"
             android:paddingBottom="10dp"
             android:fontFamily="@font/nanum"
             android:textStyle="bold"/>
@@ -42,7 +43,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
 
             <TextView
                 android:id="@+id/volunteer_writer"
@@ -50,9 +53,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum"
                 android:paddingStart="20dp"
-                android:paddingTop="10dp"
                 android:paddingEnd="10dp"
-                android:paddingBottom="10dp"
                 android:text="천안시청"
                 android:textColor="#A7A7A7"
                 android:textSize="13dp" />
@@ -63,9 +64,7 @@
                 android:text="|"
                 android:textColor="#A7A7A7"
                 android:paddingStart="5dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingEnd="5dp"
                 android:fontFamily="@font/nanum"/>
 
             <TextView
@@ -75,10 +74,8 @@
                 android:textColor="#A7A7A7"
                 android:text="2020-10-07"
                 android:textSize="13dp"
-                android:paddingStart="5dp"
+                android:paddingStart="10dp"
                 android:paddingEnd="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:fontFamily="@font/nanum"/>
         </LinearLayout>
 
