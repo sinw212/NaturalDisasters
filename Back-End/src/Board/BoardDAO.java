@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.simple.JSONObject;
 
 import DBConnect.DBConnector;
 
@@ -273,14 +276,14 @@ public class BoardDAO {
 				writer = rs.getString(1);
 			}
 		} catch (SQLException e) {    //  예외처리, 대응부재 제거
-			System.err.println("BoardDAO getPost SQLExceptoin error");
+			System.err.println("BoardDAO checkWriter SQLExceptoin error");
 		} finally {    //  자원 해제
 			try {
 				if(conn != null) {conn.close();}
 				if(pstmt != null) {pstmt.close();}
 				if(rs != null) {rs.close();}
 			} catch(SQLException e) {
-				System.err.println("BoardDAO getPost close SQLException error");
+				System.err.println("BoardDAO checkWriter close SQLException error");
 			}
 		}
 		if(writer.equals(userID)) {    //  작성자일 경우
@@ -288,5 +291,80 @@ public class BoardDAO {
 		} else {    //  작성자와 다를 경우
 			return false;
 		}
+	}
+	
+	private ArrayList<String> getImgName(int id) {    //  게시글 이미지사진 파일명 획득
+		ArrayList<String> list = new ArrayList<String>();
+		
+		String sql = "select FileRealName from BoardFile where BoardID = ? and Available = 1";
+		conn = dbConnector.getConnection();
+		
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,  id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString(1));
+			}
+		} catch (SQLException e) {    //  예외처리, 대응부재 제거
+			System.err.println("BoardDAO getImgName SQLExceptoin error");
+		} finally {    //  자원 해제
+			try {
+				if(conn != null) {conn.close();}
+				if(pstmt != null) {pstmt.close();}
+				if(rs != null) {rs.close();}
+			} catch(SQLException e) {
+				System.err.println("BoardDAO getImgName close SQLException error");
+			}
+		}
+		return list;
+	}
+	
+	public String getBoardData() {    //  모든 게시글 데이터 획득
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();    //  게시글 데이터를 저장할 ArrayList
+		
+		String sql = "select bi.ID, bi.Title, ui.Name, bi.Date, u.Name, bi.ReDate, bi.Content "
+				+ "from Board bi join User ui on ui.id = bi.Writer join User u on u.id = bi.ReWriter "
+				+ "order by Date desc";
+		conn = dbConnector.getConnection();
+		
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO boardDTO = new BoardDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+				list.add(boardDTO);
+			}
+		} catch (SQLException e) {    //  예외처리, 대응부재 제거
+			System.err.println("BoardDAO getBoardData SQLExceptoin error");
+		} finally {    //  자원 해제
+			try {
+				if(conn != null) {conn.close();}
+				if(pstmt != null) {pstmt.close();}
+				if(rs != null) {rs.close();}
+			} catch(SQLException e) {
+				System.err.println("BoardDAO getBoardData close SQLException error");
+			}
+		}
+		
+		ArrayList<JSONObject> boardArray = new ArrayList<JSONObject>();    //  JSON데이터들을 담을 List
+		for(int i = 0; i < list.size(); i++) {
+			ArrayList<String> strList = getImgName(list.get(i).getId());
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();    //  key와 value로 묶기
+			hashMap.put("id", list.get(i).getId());    //  게시글 아이디
+			hashMap.put("title", list.get(i).getTitle());    //  게시글 제목
+			hashMap.put("writer", list.get(i).getWriter());    //  게시글 작성자
+			hashMap.put("date", list.get(i).getDate());    //  게시글 작성시간
+			hashMap.put("rewriter", list.get(i).getReWriter());    //  게시글 수정자
+			hashMap.put("redate", list.get(i).getReDate());    //  게시글 수정 날짜
+			hashMap.put("content", list.get(i).getContent());    //  게시글 내용
+			hashMap.put("image", strList);
+			JSONObject childObject = new JSONObject(hashMap);    //  JSON데이터로 만들기
+			boardArray.add(childObject);    //  JSON List에 추가
+		}
+		
+		return boardArray.toString();
 	}
 }
