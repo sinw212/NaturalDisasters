@@ -93,13 +93,13 @@ public class SplashActivity extends Activity {
         Local1 = arr_area[1]; //OO도
         Local2 = arr_area[2]; //OO시
 
-        // 지진 대피소 파싱 시작
+        /*// 지진 대피소 파싱 시작
         try {
             eqtask = new EarthquakeShelterParsing(Local1,Local2);
             eqtask.execute();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         // 창원시 ~ 전주시는 ㅇㅇ시ㅇㅇ구로 표현되기 때문에 따로 검사
@@ -156,7 +156,7 @@ public class SplashActivity extends Activity {
             }
             if(list.size() >0)
                 break;
-            /*else{
+            else{
                 if(flag1){
                     break;
                 }
@@ -165,17 +165,18 @@ public class SplashActivity extends Activity {
                     Local3 = dong[0];
                     flag1 = true;
                 }
-            }*/
+            }
         }
 
         // 무더위 쉼터 파싱 시작
-        try {
+       /* try {
             hwtask = new HeatWaveParsing(list,this);
             hwtask.execute();
+            Log.d("파싱2","실행");
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         Toast.makeText(SplashActivity.this, full_address, Toast.LENGTH_SHORT).show();
 

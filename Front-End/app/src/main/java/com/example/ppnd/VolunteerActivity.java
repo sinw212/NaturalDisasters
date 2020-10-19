@@ -2,16 +2,41 @@ package com.example.ppnd;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.ppnd.Adapter.VolunteerAdapter;
+import com.example.ppnd.Adapter.VolunteerImgAdapter;
+import com.example.ppnd.Data.VolunteerData;
+import com.example.ppnd.Other.AppHelper;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VolunteerActivity extends AppCompatActivity {
 
     private TextView title, date, writer,content;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<String> imgd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +45,13 @@ public class VolunteerActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
         Intent intent = getIntent();
         String titled = intent.getExtras().getString("title");
         String dated = intent.getExtras().getString("date");
         String writerd = intent.getExtras().getString("writer");
+        String contentd = intent.getExtras().getString("content");
+        imgd = intent.getStringArrayListExtra("img");
 
         title = (TextView) findViewById(R.id.volunteercon_title);
         date = (TextView) findViewById(R.id.volunteercon_date);
@@ -33,14 +61,31 @@ public class VolunteerActivity extends AppCompatActivity {
         title.setText(titled);
         date.setText(dated);
         writer.setText(writerd);
-        content.setText("태풍으로 인하여 많은 피해를 입은 충청남도 천안시에서 피해복구 활동을 할 자원봉사자를 모집합니다.\n많은 참여 부탁드립니다.\n\n"+
-                "일  시 : 2020. 10. 10(목) 07:00 ~ 20:00\n인  원 : 성인 40명 (선착순 모집)\n" +
-                "내  용 : 침수가옥 복구 및 토사물 청소\n" +
-                "신  청 : 전화 (T.010.1234.5678)\n" +
-                "준비물 : 작업에 적절한 옷차림 (긴팔, 긴바지, 장화, 등산화, 작업화)/ 모자, 수건, 여벌 옷 등\n" +
-                "센터지원 : 식사/ 물/ 장비 등");
+        content.setText(contentd);
 
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview3);
 
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
 
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new VolunteerImgAdapter(imgd, this);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.notifyDataSetChanged();
+
+        /*ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
+        scrollView.requestFocus(View.FOCUS_UP);
+        scrollView.scrollTo(0,0);
+*/
     }
+
 }

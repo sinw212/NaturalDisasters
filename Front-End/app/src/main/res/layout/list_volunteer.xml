@@ -30,7 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center|left"
-            android:text="자원봉사자 모집합니다. 일시 : 2020-10-07 장소 : 충청남도 천안시"
             android:textSize="16dp"
             android:textColor="#727272"
             android:paddingStart="20dp"

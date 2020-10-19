@@ -21,7 +21,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.View
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView1, mTextView2, mTextView3;
+        public TextView mTextView1, mTextView2, mTextView3, mTextView4;
 
         public ViewHolder(View view) {
             super(view);
@@ -29,6 +29,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.View
             mTextView1 = (TextView)view.findViewById(R.id.volunteer_title);
             mTextView2 = (TextView)view.findViewById(R.id.volunteer_date);
             mTextView3 = (TextView)view.findViewById(R.id.volunteer_writer);
+            mTextView4 = (TextView)view.findViewById(R.id.volunteer_content);
 
         }
     }
@@ -59,6 +60,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.View
         holder.mTextView1.setText(mDataset.get(position).getTitle());
         holder.mTextView2.setText(mDataset.get(position).getDate());
         holder.mTextView3.setText(mDataset.get(position).getWriter());
+        holder.mTextView4.setText(mDataset.get(position).getContent());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
