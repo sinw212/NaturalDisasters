@@ -177,12 +177,12 @@ public class SplashActivity extends Activity {
                 for (int i = 1; i < 6; i++) {
                     switch (i * 10) {
                         case 10:
-                            hwParsing.HeatWaveParsing(list, getApplicationContext());
+//                            hwParsing.HeatWaveParsing(list, getApplicationContext());
                             Log.d("진입5", "ㅇㅇ");
                             checkSecurity += 1;
                             break;
                         case 20:
-                            eqsParsing.EarthquakeShelterParsing(Local1, Local2);
+//                            eqsParsing.EarthquakeShelterParsing(Local1, Local2);
                             Log.d("진입6", "ㅇㅇ");
                             checkSecurity += 1;
                             break;
@@ -287,17 +287,13 @@ public class SplashActivity extends Activity {
                 Manifest.permission.ACCESS_COARSE_LOCATION);
         int hasBackGROUNDLocationPermission =ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-
-        int hasReadPhoneStatePermission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_PHONE_STATE);
-
-        int hasSendSMSPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
+        int hasCallPhoneStatePermission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE);
 
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasBackGROUNDLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                hasReadPhoneStatePermission == PackageManager.PERMISSION_GRANTED &&
-                hasSendSMSPermission == PackageManager.PERMISSION_GRANTED){
+                hasCallPhoneStatePermission == PackageManager.PERMISSION_GRANTED){
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
             // 3.  위치 값을 가져올 수 있음

@@ -56,7 +56,6 @@ public class HomeFragment extends Fragment {
 
         initView();
 
-
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerview.setLayoutManager(layoutManager);
 

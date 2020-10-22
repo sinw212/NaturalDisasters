@@ -1,25 +1,32 @@
 package com.example.ppnd.Other;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-public class GPSService extends Service implements LocationListener {
+import com.example.ppnd.MainActivity;
+import com.example.ppnd.R;
+import com.example.ppnd.SplashActivity;
 
+public class GPSService extends Service implements LocationListener {
     private Context mContext;
     private static Location location;
     private static double latitude;
@@ -31,6 +38,46 @@ public class GPSService extends Service implements LocationListener {
     public GPSService(Context mContext) {
         this.mContext = mContext;
         getLocation();
+    }
+
+    //서비스와 연결을 시도하면 이 메소드가 호출됨
+    @Override
+    public IBinder onBind(Intent arg0)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        startForegroundService();
+    }
+
+    void startForegroundService() {
+//        String channelId = "channel";
+//        String channelName = "channelName";
+//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+//            notificationManager.createNotificationChannel(notificationChannel);
+//        }
+//
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId);
+//        Intent notificationIntent = new Intent(this, SplashActivity.class); //알림 클릭 시 이동할 액티비티 지정
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+//
+//        builder.setContentTitle("자연재해를 부탁해") //제목
+//                .setContentText("속보 내용입니다.") //내용
+//                .setDefaults(Notification.DEFAULT_ALL) //알림 설정(사운드, 진동)
+//                .setAutoCancel(true) //터치 시 자동으로 삭제할 지 여부
+//                .setPriority(NotificationCompat.PRIORITY_HIGH) // 알림의 중요도
+//                .setSmallIcon(R.drawable.main_icon)
+//                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.main_icon))
+//                .setContentIntent(pendingIntent);
+//
+//        notificationManager.notify(0, builder.build());
+//        //startForeground(1, builder.build());
     }
 
     public Location getLocation() {
@@ -135,17 +182,4 @@ public class GPSService extends Service implements LocationListener {
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) { }
-
-    @Override
-    public IBinder onBind(Intent arg0)
-    {
-        return null;
-    }
-
-    public void stopUsingGPS()
-    {
-        if(locationManager != null) {
-            locationManager.removeUpdates(GPSService.this);
-        }
-    }
 }

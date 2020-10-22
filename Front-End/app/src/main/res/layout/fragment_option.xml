@@ -40,23 +40,78 @@
             android:textStyle="bold"
             android:fontFamily="@font/nanum"/>
 
-        <CheckBox
-            android:id="@+id/notiCheck"
+        <Switch
+            android:id="@+id/notiSwitch"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="알림"
-            android:textSize="17sp"
-            android:fontFamily="@font/nanum"/>
-
-        <CheckBox
-            android:id="@+id/msgCheck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="문자"
-            android:textSize="17sp"
-            android:fontFamily="@font/nanum"/>
+            android:layout_height="match_parent"
+            android:switchMinWidth="50dp"
+            android:switchPadding="10dp"
+            android:layout_marginStart="10dp" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text=" 본 기능은 사용자의 현재 위치 속보와 알림 희망을 설정한 위치의 속보를 상태바로 알림을 제공하는 기능입니다."
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/nanum"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="알림 희망 지역 설정"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:fontFamily="@font/nanum"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text=" OO시, OO광역시, OO도 형태로 입력해주세요."
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/nanum"/>
+
+    <EditText
+        android:id="@+id/noti1"
+        android:paddingStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/line_remove"
+        android:hint="알림 희망 지역을 입력해주세요." />
+
+    <EditText
+        android:id="@+id/noti2"
+        android:paddingStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/line_remove"
+        android:hint="알림 희망 지역을 입력해주세요." />
+
+    <EditText
+        android:id="@+id/noti3"
+        android:paddingStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/line_remove"
+        android:hint="알림 희망 지역을 입력해주세요." />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="right"
+        android:text="저장" />
 </LinearLayout>
