@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 import DBConnect.DBConnector;
 
 public class BoardDAO {
-//  DB 연결 변수
+	//  DB 연결 변수
 	private DBConnector dbConnector;
 	private Connection conn;
 	
