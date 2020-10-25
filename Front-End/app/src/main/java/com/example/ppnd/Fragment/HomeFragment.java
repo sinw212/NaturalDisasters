@@ -1,5 +1,6 @@
 package com.example.ppnd.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +20,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ppnd.Adapter.LocationAdapter;
 import com.example.ppnd.Data.LocationData;
+import com.example.ppnd.NaturalDisasters1Activity;
 import com.example.ppnd.NaturalDisasters2Activity;
 import com.example.ppnd.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
+    private Context mContext;
     private RecyclerView recyclerview = null;
     private LinearLayoutManager layoutManager = null;
     private LocationAdapter currentlocationAdapter;
@@ -33,6 +38,11 @@ public class HomeFragment extends Fragment {
     private TextView current_location;
     private Button btn_earthquake, btn_typhoon, btn_thunder,
             btn_heatwave, btn_rain, btn_snow, btn_emergency;
+
+    private String data;
+    private String current_address;
+
+    private Intent intent;
 
     @Nullable
     @Override
@@ -52,7 +62,7 @@ public class HomeFragment extends Fragment {
 
         arrayList = new ArrayList<>();
 
-        currentlocationAdapter = new LocationAdapter(arrayList);
+        currentlocationAdapter = new LocationAdapter(mContext, arrayList);
         recyclerview.setAdapter(currentlocationAdapter);
 
         //지진 버튼
@@ -60,6 +70,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //지진 설명, 행동요령, 대피소
+                intent = new Intent(getActivity(), NaturalDisasters2Activity.class);
+                intent.putExtra("type", "earthquake");
+                startActivity(intent);
             }
         });
 
@@ -67,7 +80,10 @@ public class HomeFragment extends Fragment {
         btn_typhoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //태풍 설명, 행동요령, 대피소
+                //태풍 설명, 행동요령
+                intent = new Intent(getActivity(), NaturalDisasters1Activity.class);
+                intent.putExtra("type", "typhoon");
+                startActivity(intent);
             }
         });
 
@@ -75,7 +91,10 @@ public class HomeFragment extends Fragment {
         btn_thunder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //낙뢰 설명, 행동요령, 대피소
+                //낙뢰 설명, 행동요령
+                intent = new Intent(getActivity(), NaturalDisasters1Activity.class);
+                intent.putExtra("type", "thunder");
+                startActivity(intent);
             }
         });
 
@@ -84,7 +103,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //폭염 설명, 행동요령, 대피소
-                Intent intent = new Intent(getActivity(), NaturalDisasters2Activity.class);
+                intent = new Intent(getActivity(), NaturalDisasters2Activity.class);
                 intent.putExtra("type", "heatwave");
                 startActivity(intent);
             }
@@ -94,7 +113,10 @@ public class HomeFragment extends Fragment {
         btn_rain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //호우 설명, 행동요령, 대피소
+                //호우 설명, 행동요령
+                intent = new Intent(getActivity(), NaturalDisasters1Activity.class);
+                intent.putExtra("type", "rain");
+                startActivity(intent);
             }
         });
 
@@ -102,7 +124,10 @@ public class HomeFragment extends Fragment {
         btn_snow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //폭설 설명, 행동요령, 대피소
+                //폭설 설명, 행동요령
+                intent = new Intent(getActivity(), NaturalDisasters1Activity.class);
+                intent.putExtra("type", "snow");
+                startActivity(intent);
             }
         });
 
@@ -110,26 +135,43 @@ public class HomeFragment extends Fragment {
         btn_emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Call = new Intent(Intent.ACTION_CALL);
-                Call.setData(Uri.parse("tel:010-9173-8332"));
-                startActivity(Call);
+                Toast.makeText(getContext(), "개발 완료 전까지 주석처리", Toast.LENGTH_SHORT).show();
+//                Intent Call = new Intent(Intent.ACTION_CALL);
+//                Call.setData(Uri.parse("tel:010-9173-8332"));
+//                startActivity(Call);
             }
         });
 
-        //NavigationBarMainActivity에서 전달한 번들 저장
+        //MainActivity에서 전달한 번들 저장
         Bundle bundle = getArguments();
-        String current_address = bundle.getString("current_address"); //GPS기준 현재 위치 주소
-        String data = bundle.getString("current_location_newsflash"); //GPS기준 현재 위치 속보
-
-        Log.d("진입44", current_address);
-        Log.d("진입444", data);
+        current_address = bundle.getString("current_address"); //GPS기준 현재 위치 주소
+        data = bundle.getString("current_location_newsflash"); //GPS기준 현재 위치 속보
 
         current_location.setText(current_address + " 속보");
 
-        String []split_data = data.split("\n");
+        String[] split_data = data.split("\n");
+        ArrayList<String> ssplit_data = new ArrayList<>();
         int size = split_data.length;
-        for (int i = 0; i < size; i++) {
-            currentlocationData = new LocationData(split_data[i]);
+
+        for(int i=0; i<size; i++) {
+            if(split_data[i].equals("현재 속보가 존재하지 않습니다.") ||
+                    split_data[i].equals("오류가 발생했습니다. 다시 시도해주세요."))
+                ssplit_data.add(split_data[i]);
+            else {
+                if(split_data[i].substring(0,1).equals("(")) {
+                    split_data[i] = split_data[i].substring(3, split_data[i].length());
+                    ssplit_data.add(split_data[i] + "\n");
+                }
+                else
+                    ssplit_data.set(ssplit_data.size()-1,ssplit_data.get(ssplit_data.size()-1)+split_data[i]+"\n");
+            }
+        }
+
+        int ssize = ssplit_data.size();
+        for(int i = 0; i < ssize; i++) {
+            Log.d("진입1", ssplit_data.get(i));
+
+            currentlocationData = new LocationData(ssplit_data.get(i));
 
             arrayList.add(currentlocationData); // RecyclerView의 마지막 줄에 삽입
             currentlocationAdapter.notifyDataSetChanged();

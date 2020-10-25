@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="52dp"
+    android:paddingBottom="5dp"
+    android:background="#FFFFFF">
+
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:fontFamily="@font/fontjalnan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:text="폭염 특보"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                />
+
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_background2"
+            android:fontFamily="@font/fontjalnan"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="폭염 주의보"
+            android:textColor="#000000"
+            android:textSize="22sp"
+            android:lineSpacingExtra ="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="일최고체감온도 33℃이상인 상태가 2일 이상 지속될 것으로 예상될 때"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="급격한 체감온도 상승 또는 폭염 장기화 등으로 중대한 피해발생이 예상될 때"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background2"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="폭염 경보"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="일최고체감온도 35℃이상인 상태가 2일 이상 지속될 것으로 예상될 때"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="급격한 체감온도 상승 또는 폭염 장기화 등으로 광범위한 지역에서 중대한 피해발생이 예상될 때"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+
+            <TextView
+                android:fontFamily="@font/fontjalnan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:text="더위 질병상식"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background2"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="땀띠(한진)"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="땀을 많이 흘려 피부가 자극을 받으면 붉은색이나 무색의 좁쌀 같은 발진이 생기는 것을 말한다. 긁으면 땀구멍이 막혀서 피부 상태가 나빠지고 화상이나 습진으로 악화될 수 있다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="일단 환자를 시원한 곳으로 옮기고, 땀에 젖은 옷을 마른 옷으로 갈아입히고 상처 부위를 잘 닦아 주어야 한다. 환자가 가려움증을 호소할 경우에는 의사의 진료에 따라 항히스타민을 처방할 수 있다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background2"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="열경련"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="땀을 많이 흘렸을 때 우리 몸에 꼭 필요한 수분과 염분이 부족해서 생기는 것으로 주로 근육 중심으로 경련이 일어나는 증상이다. 심하면 현기증과 구토를 유발한다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="환자는 그늘에서 쉬게 하고 소금을 물에 녹여 섭취하게 해주어야 한다. 의사의 진료에 따라 조치한다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background2"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="열사병"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="고온 다습한 환경에서 몸의 열이 발산하지 못하여 생기는 병으로 높은 온도와 습도에 방치되거나 바람이 통하지 않는 뜨거운 방에 오래 있을 경우 발생될 수 있다. 열사병이 생기면 얼굴이 창백해지고 식은땀이 나며, 현기증이나 순간적으로 정신착란을 일으킬 수 있다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="즉시 119에 신고하고, 환자를 그늘로 옮겨 겉옷을 벗기고, 미지근한 물로 몸을 적셔 체온이 내려가도록 한 후 의사·의료기관 등의 지시에 따른다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background2"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="울열증"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="태양열 아래 오랜 시간 노출되었을 경우 체온은 매우 높지만 땀이 나지 않는 상태가 되고 두통과 구토 증세를 동반하며 심할 경우 의식을 잃을 수 있다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="그늘로 옮겨 겉옷을 벗기고 미지근한 물로 옷을 적셔 물이 증발하며 체온을 낮출 수 있다. 의식이 있을 경우 물을 주고, 체온이 돌아오면 옷이나 담요로 몸을 따뜻하게 하여 냉기를 없애준다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background2"
+                android:fontFamily="@font/fontjalnan"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="화상"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:lineSpacingExtra ="5dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="	태양열로 인해서 피부가 그을리거나 수포까지 발생할 수 있다. 신체의 3분의 2이상 화상을 입으면 생명이 위험할 수 있다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/point2"
+                    android:paddingTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="그늘로 환자를 이동시켜 햇빛에 노출되지 않게 하고 피부에 수포가 생긴 경우에는 거즈를 이용하여 덮어 주되 세균 감염 위험이 있으므로 수포를 터뜨려서는 안 된다."
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/nanum"
+                    android:lineSpacingExtra ="3dp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

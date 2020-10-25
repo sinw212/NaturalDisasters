@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:background="@drawable/line_remove">
 
@@ -25,7 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:paddingStart="10dp"
-            android:hint="지역을 입력하세요."/>
+            android:hint="지역을 입력하세요."
+            android:fontFamily="@font/nanum"/>
 
         <Button
             android:id="@+id/btn_search"
@@ -46,7 +48,8 @@
         android:text="전국 자연재해 속보"
         android:textSize="30sp"
         android:textColor="#000000"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:fontFamily="@font/nanum"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_nationwide_location"
@@ -65,7 +68,8 @@
         android:text="한반도 위성 사진"
         android:textSize="30sp"
         android:textColor="#000000"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:fontFamily="@font/nanum"/>
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photoView_satellite"
