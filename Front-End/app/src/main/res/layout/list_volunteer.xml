@@ -31,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center|left"
-            android:text="자원봉사자 모집합니다. 일시 : 2020-10-07 장소 : 충청남도 천안시"
             android:textSize="16dp"
             android:textColor="#727272"
             android:paddingStart="20dp"
@@ -45,16 +44,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="10dp"
-            android:paddingBottom="20dp">
+            android:paddingBottom="10dp">
 
             <TextView
-                android:id="@+id/volunteer_writer"
+                android:id="@+id/volunteer_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum"
                 android:paddingStart="20dp"
                 android:paddingEnd="10dp"
-                android:text="천안시청"
+                android:text="2020-10-07"
                 android:textColor="#A7A7A7"
                 android:textSize="13dp" />
 
@@ -68,11 +67,11 @@
                 android:fontFamily="@font/nanum"/>
 
             <TextView
-                android:id="@+id/volunteer_date"
+                android:id="@+id/volunteer_writer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#A7A7A7"
-                android:text="2020-10-07"
+                android:text="천안시청"
                 android:textSize="13dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="20dp"

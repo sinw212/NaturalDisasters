@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -134,6 +135,7 @@ public class HomeFragment extends Fragment {
         btn_emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "개발 완료 전까지 주석처리", Toast.LENGTH_SHORT).show();
 //                Intent Call = new Intent(Intent.ACTION_CALL);
 //                Call.setData(Uri.parse("tel:010-9173-8332"));
 //                startActivity(Call);

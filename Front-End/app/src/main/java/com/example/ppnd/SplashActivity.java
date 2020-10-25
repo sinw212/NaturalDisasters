@@ -51,6 +51,7 @@ public class SplashActivity extends Activity {
 
     private int checkSecurity = 0;
 
+    private Intent foregroundIntent;
     public String current_location_newsflash, nation_wide_newsflash;
     private byte[] satellite_image;
     private NewsFlashParsing newsFlashParsing = new NewsFlashParsing();
@@ -76,6 +77,15 @@ public class SplashActivity extends Activity {
         } else {
             checkRunTimePermission();
         }
+
+//        if(GPSService.serviceIntent == null) {
+//            foregroundIntent = new Intent(this, GPSService.class);
+//            startService(foregroundIntent);
+//            Log.d("Check", "서비스 실행");
+//        } else {
+//            foregroundIntent = GPSService.serviceIntent;
+//            Log.d("Check", "이미 실행중");
+//        }
 
         gpsService = new GPSService(SplashActivity.this);
         double latitude = GPSService.getLatitude(); //위도
@@ -177,12 +187,12 @@ public class SplashActivity extends Activity {
                 for (int i = 1; i < 6; i++) {
                     switch (i * 10) {
                         case 10:
-//                            hwParsing.HeatWaveParsing(list, getApplicationContext());
+                            hwParsing.HeatWaveParsing(list, getApplicationContext());
                             Log.d("진입5", "ㅇㅇ");
                             checkSecurity += 1;
                             break;
                         case 20:
-//                            eqsParsing.EarthquakeShelterParsing(Local1, Local2);
+                            eqsParsing.EarthquakeShelterParsing(Local1, Local2);
                             Log.d("진입6", "ㅇㅇ");
                             checkSecurity += 1;
                             break;

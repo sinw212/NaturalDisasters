@@ -22,6 +22,11 @@
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config">
 
+        <receiver
+            android:name=".Other.ReStartReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
         <service
             android:name=".Other.GPSService"
             android:enabled="true"
