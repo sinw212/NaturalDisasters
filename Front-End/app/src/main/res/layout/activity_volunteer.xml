@@ -97,6 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:scrollbarFadeDuration="0"
                 android:scrollbarSize="3dp"
                 android:scrollbarThumbVertical="@android:color/darker_gray"
@@ -111,11 +112,6 @@
                 android:textSize="15sp"
                 android:padding="10dp"
                 android:fontFamily="@font/nanum"/>
-
         </LinearLayout>
-
-
-
     </ScrollView>
-
 </LinearLayout>

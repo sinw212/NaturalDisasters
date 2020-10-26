@@ -2,33 +2,16 @@ package com.example.ppnd;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.ppnd.Adapter.VolunteerAdapter;
 import com.example.ppnd.Adapter.VolunteerImgAdapter;
-import com.example.ppnd.Data.VolunteerData;
-import com.example.ppnd.Other.AppHelper;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class VolunteerActivity extends AppCompatActivity {
 
@@ -82,10 +65,10 @@ public class VolunteerActivity extends AppCompatActivity {
 
         mAdapter.notifyDataSetChanged();
 
-        /*ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
+        /*
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
         scrollView.requestFocus(View.FOCUS_UP);
         scrollView.scrollTo(0,0);
-*/
+        */
     }
-
 }

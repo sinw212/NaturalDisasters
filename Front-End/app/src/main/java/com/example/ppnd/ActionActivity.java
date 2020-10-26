@@ -6,6 +6,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.ppnd.Fragment.ActionFragment1;
+import com.example.ppnd.Fragment.ActionFragment2;
+import com.example.ppnd.Fragment.ActionFragment3;
+import com.example.ppnd.Fragment.ActionFragment4;
 import com.google.android.material.tabs.TabLayout;
 
 public class ActionActivity extends AppCompatActivity {

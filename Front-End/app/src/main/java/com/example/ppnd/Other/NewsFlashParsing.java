@@ -42,8 +42,6 @@ public class NewsFlashParsing extends AppCompatActivity {
             URL url = new URL("http://apis.data.go.kr/1360000/WthrWrnInfoService/getWthrWrnMsg?serviceKey=" +
                     serviceKey+"&pageNo=1&numOfRows=10&dataType=XML&stnId="+current_code+"&fromTmFc="+date+"&toTmFc="+date+"&");
 
-//            http://apis.data.go.kr/1360000/WthrWrnInfoService/getWthrWrnMsg?serviceKey=ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D&pageNo=1&numOfRows=10&dataType=XML&stnId=108&fromTmFc=20200927&toTmFc=20201003&
-
             XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserCreator.newPullParser();
 
@@ -100,7 +98,7 @@ public class NewsFlashParsing extends AppCompatActivity {
 
                 //예외가 발생하면 아래 줄 무시하고 바로 catch로 감
                 break;
-                //catch가 실행되는 동안은 프로그래밍 종료되지 않는다.
+            //catch가 실행되는 동안은 프로그래밍 종료되지 않는다.
             } catch (FileNotFoundException e) {
                 //포털 서버의 데이터 제공 오류로 인해 위성사진 데이터가 누락되는 경우 발생
                 CalcTime(18, 17);

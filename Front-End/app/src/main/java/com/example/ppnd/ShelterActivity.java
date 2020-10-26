@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -22,43 +21,32 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.ppnd.Data.ClusterData;
 import com.example.ppnd.Data.EarthquakeShelterData;
 import com.example.ppnd.Data.HeatWaveShelterData;
-import com.example.ppnd.Data.LocationData;
 import com.example.ppnd.Other.EarthquakeShelterParsing;
 import com.example.ppnd.Other.HeatWaveParsing;
-import com.google.android.gms.common.internal.Constants;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.Cluster;
-import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.google.maps.android.ui.IconGenerator;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import static com.google.android.gms.maps.GoogleMap.*;
-
 
 public class ShelterActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener{
-
     String [] permission_list = {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
@@ -73,7 +61,6 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
 
     ClusterManager<ClusterData> clusterManager;
     ClusterData clickedClusterData;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +79,6 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         else{
             init();
         }
-
     }
 
     // 구글 맵
@@ -111,7 +97,7 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         FragmentManager fragmentManager =getSupportFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment)fragmentManager.findFragmentById(R.id.map);
 
-       MapRedatCallback callback1 = new MapRedatCallback();
+        MapRedatCallback callback1 = new MapRedatCallback();
         mapFragment.getMapAsync(callback1);
     }
 
@@ -120,11 +106,9 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         @Override
         public void onMapReady(GoogleMap googleMap) {
             map = googleMap;
-
             getMyLocation();
         }
     }
-
 
     // 현재 위치를 측정하는 메서드
     public void getMyLocation(){
@@ -158,13 +142,11 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) == true){
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10f, listener);
         }
-
     }
 
     public void setMyLocation(Location location){
         Log.d("test123","위도 : " +location.getLatitude());
         Log.d("test123","경도 : " + location.getLongitude());
-
 
         // 위도와 경도값을 관리하는 객체
         LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
@@ -192,14 +174,11 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
 
         // map.clear();
 
-
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED ){
                 return;
             }
         }
-
         // 현재 위치 표시
         map.setMyLocationEnabled(true);
     }
@@ -212,27 +191,18 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         }
 
         @Override
-        public void onProviderDisabled(String s) {
-
-        }
+        public void onProviderDisabled(String s) { }
 
         @Override
-        public void onProviderEnabled(String s) {
-
-        }
+        public void onProviderEnabled(String s) { }
 
         @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
+        public void onStatusChanged(String s, int i, Bundle bundle) { }
     }
-
 
     // 마커
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-    }
+    public void onMapReady(GoogleMap googleMap) { }
 
    /* private Marker addMarker(Double lat, Double lng, String title) {
         LatLng position = new LatLng(lat, lng);
@@ -267,10 +237,7 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     @Override
-    public void onMapClick(LatLng latLng) {
-
-    }
-
+    public void onMapClick(LatLng latLng) { }
 
     private void getData(String type){
         if(type.equals("earthquake")){
@@ -301,6 +268,7 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
             clusterManager.cluster();
         }
     }
+
     // 마커 커스텀 class
     class CustomIconRenderer extends DefaultClusterRenderer<ClusterData> {
         private final IconGenerator mClusterIconGenerator = new IconGenerator(getApplicationContext());
@@ -321,7 +289,6 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
 
         @Override
         protected void onBeforeClusterRendered(Cluster item, MarkerOptions markerOptions){
-
             final Drawable clusterIcon = getResources().getDrawable(R.drawable.cluster_background);
 
             mClusterIconGenerator.setBackground(clusterIcon);
@@ -349,4 +316,3 @@ public class ShelterActivity extends FragmentActivity implements OnMapReadyCallb
         }
     }
 }
-

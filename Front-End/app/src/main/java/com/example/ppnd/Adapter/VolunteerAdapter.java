@@ -30,7 +30,6 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.View
             mTextView2 = (TextView)view.findViewById(R.id.volunteer_date);
             mTextView3 = (TextView)view.findViewById(R.id.volunteer_writer);
             mTextView4 = (TextView)view.findViewById(R.id.volunteer_content);
-
         }
     }
 

@@ -1,24 +1,16 @@
 package com.example.ppnd.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.ppnd.Data.VolunteerData;
 import com.example.ppnd.R;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class VolunteerImgAdapter extends RecyclerView.Adapter<VolunteerImgAdapter.ViewHolder> {

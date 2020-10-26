@@ -24,6 +24,8 @@ import android.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.toolbox.Volley;
+import com.example.ppnd.Other.AppHelper;
 import com.example.ppnd.Other.EarthquakeShelterParsing;
 import com.example.ppnd.Other.HeatWaveParsing;
 import com.example.ppnd.Other.NewsFlashParsing;
@@ -51,19 +53,25 @@ public class SplashActivity extends Activity {
 
     private int checkSecurity = 0;
 
+    private Intent foregroundIntent;
     public String current_location_newsflash, nation_wide_newsflash;
     private byte[] satellite_image;
     private NewsFlashParsing newsFlashParsing = new NewsFlashParsing();
+    private EarthquakeShelterParsing eqsParsing = new EarthquakeShelterParsing();
+    private HeatWaveParsing hwParsing = new HeatWaveParsing();
 
     private String full_address, current_address;
     private int current_code;
     private String[] arr_area;
-    private String Local1, Local2,Local3;
+    private String earth_Local1, earth_Local2;
+    private String heat_Local1, heat_Local2, heat_Local3;
     private int count=3;
     private GPSService gpsService;
+    private String code_earthquake = "";
+    private String url_earthquake = "";
 
-    private EarthquakeShelterParsing eqtask;
-    private HeatWaveParsing hwtask;
+    // 지역코드 csv 파일에서 받아오기
+    private ArrayList list = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,6 +82,19 @@ public class SplashActivity extends Activity {
         } else {
             checkRunTimePermission();
         }
+
+        // request queue 는 앱이 시작되었을 때 한 번 초기화되기만 하면 계속 사용이 가능
+        if(AppHelper.requestqueue == null)
+            AppHelper.requestqueue = Volley.newRequestQueue(this);
+
+//        if(GPSService.serviceIntent == null) {
+//            foregroundIntent = new Intent(this, GPSService.class);
+//            startService(foregroundIntent);
+//            Log.d("Check", "서비스 실행");
+//        } else {
+//            foregroundIntent = GPSService.serviceIntent;
+//            Log.d("Check", "이미 실행중");
+//        }
 
         gpsService = new GPSService(SplashActivity.this);
         double latitude = GPSService.getLatitude(); //위도
@@ -90,105 +111,81 @@ public class SplashActivity extends Activity {
 
         Log.d("현위치 주소",full_address);
         arr_area = full_address.split(" ");
-        Local1 = arr_area[1]; //OO도
-        Local2 = arr_area[2]; //OO시
+        earth_Local1 = arr_area[1]; //OO도
+        earth_Local2 = arr_area[2]; //OO시
+        heat_Local1 = arr_area[1];
+        heat_Local2 = arr_area[2];
 
-        /*// 지진 대피소 파싱 시작
-        try {
-            eqtask = new EarthquakeShelterParsing(Local1,Local2);
-            eqtask.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+        // 지역코드 csv 파일에서 받아오기
+        if(earth_Local1.equals("세종특별자치시"))
+            code_earthquake = "3611000000";
+        else{
+            try {
+                InputStreamReader is1 = new InputStreamReader(getResources().openRawResource(R.raw.areacode_earthquake));
+                BufferedReader reader1 = new BufferedReader(is1);
+                String record = null;
+                while ((record = reader1.readLine()) != null) {
+                    String arr[] = record.split(",");
+                    if (arr[0].equals(earth_Local1)) {
+                        if (arr[1].equals(earth_Local2)) {
+                            code_earthquake = arr[2];
+                            break;
+                        }
+                    }
+                }
 
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        url_earthquake = "http://tomcat.comstering.synology.me/PPND_Server/getShelterData.jsp?arcd="+code_earthquake;
 
         // 창원시 ~ 전주시는 ㅇㅇ시ㅇㅇ구로 표현되기 때문에 따로 검사
         String city[] = {"창원시","수원시","성남시","안양시","안산시","고양시","용인시","청주시","천안시","전주시"};
         int size = city.length;
         for(int i =0; i<size; i++){
-            if(Local2.equals(city[i])){
-                Local2 += arr_area[3];
+            if(heat_Local2.equals(city[i])){
+                heat_Local2 += arr_area[3];
                 count++;
             }
         }
 
-        Local3 = arr_area[count];
+        heat_Local3 = arr_area[count];
 
-        // 지역코드 csv 파일에서 받아오기
-        ArrayList list = new ArrayList<>();
-        boolean flag1 = false;
+        try {
+            InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.areacode));
+            BufferedReader reader = new BufferedReader(is);
+            String record = null;
+            while ((record = reader.readLine()) != null) {
+                String arr[] = record.split("/");
 
-        while(true) {
-            try {
-                InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.areacode));
-                BufferedReader reader = new BufferedReader(is);
-                CSVReader read = new CSVReader(reader);
-                String record = null;
-                boolean flag = false;
-                while ((record = reader.readLine()) != null) {
-                    String arr[] = record.split("/");
-
-                    if (flag) {
-                        if (arr.length < 4)
-                            break;
-                        else {
-                            if (!arr[2].equals(Local2))
-                                break;
-                        }
-                    }
-                    if (arr.length == 4) {
-                        if (arr[1].equals(Local1)) {
-                            if (arr[2].equals(Local2)) {
-                                {
+                if (arr.length == 4) {
+                    if (arr[1].equals(heat_Local1)) {
+                        if (arr[2].equals(heat_Local2)) {
+                            {
+                                if (arr[3].contains(heat_Local3)) {
                                     list.add(arr[0]);
-                                   /* if (arr[3].contains(Local3)) {
-                                        list.add(arr[0]);
-                                        flag = true;
-                                    }*/
                                 }
                             }
                         }
                     }
                 }
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
-            if(list.size() >0)
-                break;
-            else{
-                if(flag1){
-                    break;
-                }
-                else{
-                    String dong[] = arr_area[count].split("동");
-                    Local3 = dong[0];
-                    flag1 = true;
-                }
-            }
-        }
-
-        // 무더위 쉼터 파싱 시작
-       /* try {
-            hwtask = new HeatWaveParsing(list,this);
-            hwtask.execute();
-            Log.d("파싱2","실행");
-
         } catch (Exception e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }*/
-
-        Toast.makeText(SplashActivity.this, full_address, Toast.LENGTH_SHORT).show();
+        }
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_DENIED ||
                         ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_DENIED||
                         ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_DENIED)) {
-
             Log.d("진입1", "ㅇㅇ");
-            NewsflashTask nftask = new NewsflashTask();
+            ProgressTask task = new ProgressTask();
             Log.d("진입2", "ㅇㅇ");
-            nftask.execute();
+            task.execute();
         }
         else{
             Log.d("진입MainActivity로 넘어가", "ㅇㅇ");
@@ -197,8 +194,8 @@ public class SplashActivity extends Activity {
         }
     }
 
-    //속보&위성사진 파싱
-    public class NewsflashTask extends AsyncTask<Void, Void, Void> {
+    //속보&위성사진 & 지진대피소&무더위쉼터 위치 파싱
+    public class ProgressTask extends AsyncTask<Void, Void, Void> {
         ProgressDialog progressDialog = new ProgressDialog(SplashActivity.this);
         //가장 먼저 호출
         @Override
@@ -217,32 +214,42 @@ public class SplashActivity extends Activity {
         protected Void doInBackground(Void... voids) {
             Log.d("진입4", "ㅇㅇ");
             try {
-                for (int i = 1; i < 4; i++) {
+                for (int i = 1; i < 6; i++) {
                     switch (i * 10) {
                         case 10:
-                            current_location_newsflash = newsFlashParsing.newsflashXmlData(current_code);
-                            Log.d("진입5", String.valueOf(current_code));
+                            hwParsing.HeatWaveParsing(list, getApplicationContext());
+                            Log.d("진입5", "ㅇㅇ");
                             checkSecurity += 1;
                             break;
                         case 20:
-                            nation_wide_newsflash = newsFlashParsing.newsflashXmlData(108);
+                            eqsParsing.EarthquakeShelterParsing(url_earthquake);
                             Log.d("진입6", "ㅇㅇ");
                             checkSecurity += 1;
                             break;
                         case 30:
+                            current_location_newsflash = newsFlashParsing.newsflashXmlData(current_code);
+                            Log.d("진입7", String.valueOf(current_code));
+                            checkSecurity += 1;
+                            break;
+                        case 40:
+                            nation_wide_newsflash = newsFlashParsing.newsflashXmlData(108);
+                            Log.d("진입8", "ㅇㅇ");
+                            checkSecurity += 1;
+                            break;
+                        case 50:
                             Bitmap bm = newsFlashParsing.satelliteXmlData();
                             //100K 이상 데이터를 Intent를 통해 put할 경우 에러 발생 -> 크기 줄여줘야함
                             //원인 : android os에서 intent에 100K 이상 넣을 수 없기 때문
                             ByteArrayOutputStream bos = new ByteArrayOutputStream();
                             bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
                             satellite_image = bos.toByteArray();
-                            Log.d("진입7", "ㅇㅇ");
+                            Log.d("진입9", "ㅇㅇ");
                             checkSecurity += 1;
                         default:
                             break;
                     }
                 }
-                Log.d("진입8", "ㅇㅇ");
+                Log.d("진입10", "ㅇㅇ");
                 progressDialog.setProgress(1*10);
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -259,16 +266,16 @@ public class SplashActivity extends Activity {
             progressDialog.dismiss();
             super.onPostExecute(result);
 
-            Log.d("진입9", "ㅇㅇ");
+            Log.d("진입11", "ㅇㅇ");
 
-            if(checkSecurity == 3) {
-                Log.d("진입10", "ㅇㅇ");
+            if(checkSecurity == 5) {
+                Log.d("진입12", "ㅇㅇ");
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("current_location_newsflash", current_location_newsflash);
                 intent.putExtra("nation_wide_newsflash", nation_wide_newsflash);
                 intent.putExtra("satellite_image", satellite_image);
                 intent.putExtra("current_address", current_address);
-                Log.d("진입11", current_address);
+                Log.d("진입13", current_address);
 
                 startActivity(intent);
                 finish();
@@ -320,17 +327,13 @@ public class SplashActivity extends Activity {
                 Manifest.permission.ACCESS_COARSE_LOCATION);
         int hasBackGROUNDLocationPermission =ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-
-        int hasReadPhoneStatePermission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_PHONE_STATE);
-
-        int hasSendSMSPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
+        int hasCallPhoneStatePermission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE);
 
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasBackGROUNDLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                hasReadPhoneStatePermission == PackageManager.PERMISSION_GRANTED &&
-                hasSendSMSPermission == PackageManager.PERMISSION_GRANTED){
+                hasCallPhoneStatePermission == PackageManager.PERMISSION_GRANTED){
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
             // 3.  위치 값을 가져올 수 있음
@@ -390,6 +393,8 @@ public class SplashActivity extends Activity {
                         return;
                     }
                 }
+                else
+                    Log.d("Check", "onActivityResult : GPS 활성화 !!안!!되어있음");
                 break;
         }
     }

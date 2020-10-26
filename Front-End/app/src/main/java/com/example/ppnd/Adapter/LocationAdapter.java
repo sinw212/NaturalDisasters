@@ -95,8 +95,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                     Toast.makeText(v.getContext(), "현재 속보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
                 else if(item.getData().equals("오류가 발생했습니다. 다시 시도해주세요."))
                     Toast.makeText(v.getContext(), "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(v.getContext(), "개발자 수정 필요.", Toast.LENGTH_SHORT).show();
             }
         });
     }

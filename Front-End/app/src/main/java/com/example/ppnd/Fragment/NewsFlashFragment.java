@@ -70,7 +70,6 @@ public class NewsFlashFragment extends Fragment {
         byte[] bm = bundle.getByteArray("satellite_image"); //위성사진 받아오기
         Bitmap satellite_data = BitmapFactory.decodeByteArray(bm,0,bm.length);
 
-
         String[] split_data = newsflash_data.split("\n");
         ArrayList<String> ssplit_data = new ArrayList<>();
         int size = split_data.length;
