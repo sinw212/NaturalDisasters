@@ -4,5 +4,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">apis.data.go.kr</domain>
         <domain includeSubdomains="true">www.weather.go.kr</domain>
+        <domain includeSubdomains="true">tomcat.comstering.synology.me</domain>
     </domain-config>
 </network-security-config>

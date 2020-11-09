@@ -24,6 +24,8 @@ import android.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.toolbox.Volley;
+import com.example.ppnd.Other.AppHelper;
 import com.example.ppnd.Other.EarthquakeShelterParsing;
 import com.example.ppnd.Other.HeatWaveParsing;
 import com.example.ppnd.Other.NewsFlashParsing;
@@ -61,9 +63,12 @@ public class SplashActivity extends Activity {
     private String full_address, current_address;
     private int current_code;
     private String[] arr_area;
-    private String Local1, Local2;
+    private String earth_Local1, earth_Local2;
+    private String heat_Local1, heat_Local2, heat_Local3;
     private int count=3;
     private GPSService gpsService;
+    private String code_earthquake = "";
+    private String url_earthquake = "";
 
     // 지역코드 csv 파일에서 받아오기
     private ArrayList list = new ArrayList<>();
@@ -71,6 +76,12 @@ public class SplashActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // request queue 는 앱이 시작되었을 때 한 번 초기화되기만 하면 계속 사용이 가능
+        if(AppHelper.requestqueue == null){
+            Log.d("볼리","0");
+            AppHelper.requestqueue = Volley.newRequestQueue(this);
+        }
 
         if (!checkLocationServicesStatus()) {
             showDialogForLocationServiceSetting();
@@ -102,50 +113,73 @@ public class SplashActivity extends Activity {
 
         Log.d("현위치 주소",full_address);
         arr_area = full_address.split(" ");
-        Local1 = arr_area[1]; //OO도
-        Local2 = arr_area[2]; //OO시
+        earth_Local1 = arr_area[1]; //OO도
+        earth_Local2 = arr_area[2]; //OO시
+        heat_Local1 = arr_area[1];
+        heat_Local2 = arr_area[2];
+
+        // 지역코드 csv 파일에서 받아오기
+        if(earth_Local1.equals("세종특별자치시"))
+            code_earthquake = "3611000000";
+        else{
+            try {
+                InputStreamReader is1 = new InputStreamReader(getResources().openRawResource(R.raw.areacode_earthquake));
+                BufferedReader reader1 = new BufferedReader(is1);
+                String record = null;
+                while ((record = reader1.readLine()) != null) {
+                    String arr[] = record.split(",");
+                    if (arr[0].equals(earth_Local1)) {
+                        if (arr[1].equals(earth_Local2)) {
+                            code_earthquake = arr[2];
+                            break;
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        url_earthquake = "http://tomcat.comstering.synology.me/PPND_Server/getShelterData.jsp?arcd="+code_earthquake;
+        Log.d("지진주소",url_earthquake);
+        eqsParsing.EarthquakeShelterParsing(url_earthquake);
 
         // 창원시 ~ 전주시는 ㅇㅇ시ㅇㅇ구로 표현되기 때문에 따로 검사
         String city[] = {"창원시","수원시","성남시","안양시","안산시","고양시","용인시","청주시","천안시","전주시"};
         int size = city.length;
         for(int i =0; i<size; i++){
-            if(Local2.equals(city[i])){
-                Local2 += arr_area[3];
+            if(heat_Local2.equals(city[i])){
+                heat_Local2 += arr_area[3];
                 count++;
             }
         }
-        while(true) {
-            try {
-                InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.areacode));
-                BufferedReader reader = new BufferedReader(is);
-                CSVReader read = new CSVReader(reader);
-                String record = null;
-                boolean flag = false;
-                while ((record = reader.readLine()) != null) {
-                    String arr[] = record.split("/");
 
-                    if (flag) {
-                        if (arr.length < 4)
-                            break;
-                        else {
-                            if (!arr[2].equals(Local2))
-                                break;
-                        }
-                    }
-                    if (arr.length == 4) {
-                        if (arr[1].equals(Local1)) {
-                            if (arr[2].equals(Local2)) {
-                                list.add(arr[0]);
+        heat_Local3 = arr_area[count];
+
+        try {
+            InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.areacode));
+            BufferedReader reader = new BufferedReader(is);
+            String record = null;
+            while ((record = reader.readLine()) != null) {
+                String arr[] = record.split("/");
+
+                if (arr.length == 4) {
+                    if (arr[1].equals(heat_Local1)) {
+                        if (arr[2].equals(heat_Local2)) {
+                            {
+                                if (arr[3].contains(heat_Local3)) {
+                                    list.add(arr[0]);
+                                }
                             }
                         }
                     }
                 }
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
-            if(list.size() >0)
-                break;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
@@ -156,6 +190,7 @@ public class SplashActivity extends Activity {
             ProgressTask task = new ProgressTask();
             Log.d("진입2", "ㅇㅇ");
             task.execute();
+//            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
         else{
             Log.d("진입MainActivity로 넘어가", "ㅇㅇ");
@@ -192,7 +227,6 @@ public class SplashActivity extends Activity {
                             checkSecurity += 1;
                             break;
                         case 20:
-                            eqsParsing.EarthquakeShelterParsing(Local1, Local2);
                             Log.d("진입6", "ㅇㅇ");
                             checkSecurity += 1;
                             break;
@@ -221,7 +255,7 @@ public class SplashActivity extends Activity {
                 }
                 Log.d("진입10", "ㅇㅇ");
                 progressDialog.setProgress(1*10);
-                Thread.sleep(100);
+                Thread.sleep(0);
             } catch (InterruptedException e) {
                 Log.d("진입못해따", "ㅇㅇ");
                 System.err.println("MyAsyncTask InterruptedException error ");
@@ -374,6 +408,7 @@ public class SplashActivity extends Activity {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
+
 
     //퍼미션 요청 결과를 리턴받는 메소드
     @Override
